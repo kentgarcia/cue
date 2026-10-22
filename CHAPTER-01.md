@@ -1,0 +1,23 @@
+# Chapter 01 — The Dream
+
+The opening three slides introduce Team AtomIQ. A white circle rises from the bottom and expands to cover the canvas when moving from slide 1 to slide 2. The active deck has 21 slides across six chapters. Slide 01 recreates the supplied event poster using independent SVG lettering and ornaments, with static layered gradients and SVG background shapes, plus a vector marquee. Slides 02–21 follow the supplied Apple “Don't Blink” reference: the opening orange gradient and white `#ffffff`, with cumulative word-by-word reveals rather than rapid word replacement. Each word appears in its final position and remains visible.
+
+| Slide | Opening hold | Presenter interaction |
+| --- | --- | --- |
+| 01 · Beyond the Atom | Recreated vector event design; cue holds at frame 30. The smaller logos and supporting copy stay fixed. Small round flares drift, portraits gently float above stationary names, and a vector fingerprint-and-chevron footer scrolls in a seamless loop. The large gradient shapes stay still. | Hold while Michelle introduces the event and team. Ambient movement continues through the hold. |
+| 02 · What do you want to become? | Large centered question holds at frame 14. | Each Next reveals one profession: ENGINEER → SCIENTIST → DOCTOR → ARCHITECT, holding at frames 31, 48, 65, 82. The question is centered on both axes, then disappears as the first profession appears. Labels read ENGINEER?, SCIENTIST?, DOCTOR?, and ARCHITECT?. Each new profession settles into its row. Earlier words stay visible. |
+| 03 · Why not start now? | Words accumulate into “Why not / start now?” at frame 26. | Hold before advancing into Chapter 02. |
+
+The opening uses Lilita One for the individual dimensional letters, Poppins for supporting copy and Kalam for the hand-lettered label. These are close visual matches; the flattened source PNG does not identify the original font families. All opening text is editable SVG text. All other slide type is self-hosted Inter, with 800-weight display type and 500–700 supporting text. Weights 500–800 load before the Player mounts. Easing uses the shared strong ease-out curve `(0.23, 1, 0.32, 1)`. Cue-driven transforms and opacity derive from the Remotion frame. The opening’s explicitly requested idle ambience uses HTML wrappers with CSS transforms and opacity, separate from the memoized SVG lettering. Nine flare surfaces and three portrait wrappers are tightly bounded. The large gradients stay still and the expensive procedural noise filter is omitted. The footer marquee moves at a constant speed using a native vector repeat. This CSS compositor effect runs only on the live stage, has no timers or navigation side effects, and is disabled in all previews, frozen transition snapshots and reduced motion.
+
+Slide changes use a ten-frame dissolve with no zoom or flash. Reduced motion shows each complete headline with a single opacity reveal and uses the engine's fade transition. The Fukushima interview slide also retains its restrained fade in normal motion.
+
+Right, Space, Enter or canvas click advances; Left restores an exact earlier state. Restart replays the opening. Each checkpoint holds indefinitely. The quiz answer, award photographs and closing thank-you still require their own presenter cues.
+
+The reusable typography is in `src/presentation/chapters/shared/KineticType.tsx`; palette and curves are in `chapter-01/theme.ts`. The old camera helpers remain available as unused examples and do not draw decorative guides over the active deck.
+
+Open `/tests/chapter-preview.html` for initial, mid-animation and settled frames; add `?kinetic` for additional word accumulation frames and profession holds. Add `?transitions` to inspect slide dissolves. Other chapters use `?chapter2` through `?chapter6`. Browser screenshots are saved under `test-results/`.
+
+Run `npm test`, `npm run build` and `npm run test:e2e` for cue logic, font readiness, reduced motion, text bounds and real Player integration.
+
+The opening is not a flattened poster image; its lettering and ornaments remain editable SVG, while the supplied partner logos and team portraits use local image assets. Its source is `src/presentation/chapters/chapter-01/Slide01Opening.tsx`. Locally bundled fonts and their OFL licenses are in `public/fonts/event/`. The source image is used only as a visual reference. The uploaded Meralco, PUP, Explicit and AtomIQ logos appear at the top, and the supplied Michelle, Kent and Ezekiel portraits appear at the right.

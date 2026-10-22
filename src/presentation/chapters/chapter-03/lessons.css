@@ -1,0 +1,82 @@
+/* Recreated product UI. Phone artwork is a DOM composition, never a flattened screenshot. */
+.atomiq-lessons { position: absolute; inset: 0; overflow: hidden; color: #383650; }
+.atomiq-lessons__heading { position: absolute; left: 125px; top: 225px; margin: 0; font-size: 166px; font-weight: 800; line-height: 1.05; letter-spacing: -.065em; }
+.atomiq-lessons__landscape { position: absolute; inset: 0; pointer-events: none; }
+.atomiq-lessons__landscape i { position: absolute; left: 1010px; top: 210px; width: 1180px; height: 1250px; border-radius: 50%; background: linear-gradient(140deg, #fff4dc, #ffcf7b); }
+.atomiq-lessons__landscape i + i { left: -180px; top: 980px; width: 1500px; height: 600px; background: #fff2dc; }
+.atomiq-lessons__copy { position: absolute; left: 136px; top: 455px; font-size: 100px; font-weight: 700; line-height: 1.08; letter-spacing: -.055em; color: #322d28; }
+.atomiq-lessons__course-label { margin-top: 64px; font-size: 28px; font-weight: 600; letter-spacing: -.025em; color: #997853; }
+.atomiq-lessons__device { position: absolute; left: 1240px; top: 48px; width: 466px; height: 1000px; padding: 10px; background: #252b26; border-radius: 66px; box-shadow: 0 28px 65px #50371625, inset 0 0 0 3px #697565; }
+.atomiq-lessons__screen { position: relative; width: 446px; height: 980px; border-radius: 56px; overflow: hidden; background: #fff6e7; }
+.lesson-map { position: absolute; width: 946px; height: 2048px; background: linear-gradient(#fff3de, #fffaf3 65%, white); transform: scale(.47145877); transform-origin: 0 0; color: #343435; font-size: 32px; font-weight: 700; }
+.lesson-status { position: absolute; top: 38px; left: 84px; right: 52px; display: flex; align-items: center; justify-content: space-between; font-size: 38px; letter-spacing: -.02em; color: #070707; }
+.lesson-status > div { display: flex; align-items: center; gap: 16px; }
+.lesson-status strong { font-size: 29px; background: #ffd000; border-radius: 10px; padding: 0 7px; line-height: 36px; }
+.lesson-map__header { position: absolute; left: 39px; top: 143px; width: 868px; height: 369px; border-radius: 65px; background: #ffd064; box-shadow: 0 20px 30px #7b602b12; }
+.lesson-map__greeting { position: absolute; left: 26px; top: 26px; display: flex; align-items: center; gap: 28px; color: #785b19; }
+.lesson-map__greeting img { width: 111px; height: 111px; border-radius: 50%; background: #e7f3a3; border: 6px solid #eee; object-fit: cover; }
+.lesson-map__greeting small { display: block; font-size: 21px; font-weight: 700; letter-spacing: 2px; }
+.lesson-map__greeting b { display: block; font-size: 35px; line-height: 1.4; }
+.lesson-map__energy { position: absolute; left: 478px; top: 32px; width: 123px; height: 98px; border-radius: 34px; background: #434441; display: flex; align-items: center; justify-content: center; gap: 16px; color: #ffb300; }
+.lesson-map__energy b { color: white; font-size: 24px; }
+.lesson-map__shortcut { position: absolute; left: 632px; top: 32px; width: 98px; height: 98px; border: 5px solid #ffe39a; border-radius: 32px; display: grid; place-items: center; background: white; }
+.lesson-map__shortcut + .lesson-map__shortcut { left: 747px; }
+.lesson-map__shortcut i { position: absolute; right: -5px; top: -8px; width: 52px; height: 52px; display: grid; place-items: center; border: 5px solid white; border-radius: 50%; background: #f24649; color: white; font-style: normal; font-size: 24px; }
+.lesson-map__course { position: absolute; left: 24px; top: 165px; width: 821px; height: 180px; padding: 35px 36px; border: 5px solid #e4e6e9; border-radius: 49px; background: white; display: flex; align-items: center; justify-content: space-between; }
+.lesson-map__course small { display: block; font-size: 20px; font-weight: 600; color: #909392; letter-spacing: 2px; }
+.lesson-map__course strong { display: block; font-size: 33px; line-height: 1.8; letter-spacing: -.055em; white-space: nowrap; }
+.lesson-map__course > svg { flex: 0 0 auto; margin-left: 14px; }
+.lesson-map__divider { position: absolute; left: 49px; right: 49px; top: 598px; display: flex; align-items: center; gap: 32px; color: #8b9bad; }
+.lesson-map__divider b { font-size: 24px; letter-spacing: 2px; white-space: nowrap; }
+.lesson-map__divider i { flex: 1; height: 5px; border-radius: 8px; background: #d5cfc6; }
+.lesson-map__path { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lesson-tile { position: relative; width: 194px; height: 194px; border: 12px solid white; border-radius: 58px; background: linear-gradient(130deg, #e7e9ec 45%, #e3e5e9 45%, #e8eaed); box-shadow: inset 0 -26px #c7cace, 0 17px 24px #2a24251c; display: grid; place-items: center; color: #9da6b2; }
+.lesson-tile > svg { margin-top: -12px; }
+.lesson-tile--active { background: repeating-linear-gradient(133deg, #ffc568 0 95px, #ffbc50 95px 125px); box-shadow: inset 0 -26px #de9522; color: white; }
+.lesson-map__node { position: absolute; }
+.lesson-map__node--start { left: 376px; top: 692px; }
+.lesson-map__node--book { left: 516px; top: 985px; }
+.lesson-map__node--box { left: 571px; top: 1275px; }
+.lesson-map__node--star { left: 508px; top: 1567px; }
+.lesson-map__node--last { left: 376px; top: 1840px; }
+.lesson-map__start { position: absolute; left: 23px; top: -96px; padding: 17px 28px; border: 5px solid #e4e6ec; border-radius: 30px; background: white; font-size: 25px; font-weight: 800; color: #6972ee; box-shadow: 0 10px 15px #4634230d; z-index: 1; }
+.lesson-map__start::after { content: ""; position: absolute; bottom: -18px; left: 24px; width: 28px; height: 28px; background: white; border-right: 5px solid #e4e6ec; border-bottom: 5px solid #e4e6ec; transform: rotate(45deg); }
+.lesson-map__bottom-fade { position: absolute; inset: 1770px 0 0; background: linear-gradient(#fff0, #fff 90%); }
+.lesson-map__nav { position: absolute; left: 89px; top: 1737px; width: 770px; height: 185px; border: 5px solid #e4e6eb; border-bottom-width: 12px; border-radius: 85px; background: white; box-shadow: 0 25px 44px #27222e12; display: flex; align-items: center; justify-content: space-evenly; }
+.lesson-map__nav > div { position: relative; }
+.lesson-map__nav img { width: 98px; height: 98px; object-fit: contain; }
+.lesson-map__nav i { position: absolute; bottom: -36px; left: 17px; border-left: 31px solid transparent; border-right: 31px solid transparent; border-bottom: 31px solid #ef5a05; }
+.atomiq-lessons__node-press { position: absolute; left: 187px; top: 336px; width: 92px; height: 92px; border: 5px solid #ffac2b; border-radius: 29px; pointer-events: none; }
+.lesson-quiz { position: absolute; inset: 0; }
+.lesson-quiz__close { position: absolute; left: 125px; top: 203px; width: 40px; height: 40px; display: grid; place-items: center; background: #8c9dae; color: white; border-radius: 50%; }
+.lesson-quiz__progress { position: absolute; left: 205px; top: 212px; width: 1585px; height: 24px; background: #e5e7eb; border-radius: 16px; overflow: hidden; }
+.lesson-quiz__progress > div { position: absolute; inset: 0; border-radius: inherit; background: #f25c05; transform-origin: 0 50%; }
+.lesson-quiz__question-wrap { position: absolute; left: 125px; top: 294px; width: 760px; height: 578px; }
+.lesson-question { position: relative; width: 100%; height: 100%; border: 5px solid #e4e6ea; border-bottom-width: 12px; border-radius: 52px; background: white; display: flex; flex-direction: column; align-items: center; }
+.lesson-question__lab { margin-top: 38px; display: flex; align-items: center; justify-content: center; gap: 20px; padding: 14px 29px; border-radius: 22px; background: #f25c05; color: white; font-size: 28px; font-weight: 800; }
+.lesson-question__audio { margin-top: 20px; color: #8953f7; }
+.lesson-question > img { width: 203px; height: 176px; object-fit: contain; margin-top: 27px; }
+.lesson-question__text { margin: 25px 40px 0; font-size: 43px; font-weight: 750; line-height: 1.25; text-align: center; letter-spacing: -.035em; color: #3f3d65; }
+.lesson-quiz__answer-wrap { position: absolute; width: 400px; height: 266px; }
+.lesson-quiz__answer-wrap--0 { left: 960px; top: 294px; }
+.lesson-quiz__answer-wrap--1 { left: 1390px; top: 294px; }
+.lesson-quiz__answer-wrap--2 { left: 960px; top: 592px; }
+.lesson-quiz__answer-wrap--3 { left: 1390px; top: 592px; }
+.lesson-answer { position: relative; width: 100%; height: 100%; border: 5px solid #e4e6ea; border-bottom-width: 10px; border-radius: 42px; background: white; color: #3f3d65; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 27px; font-size: 27px; font-weight: 700; letter-spacing: -.025em; white-space: nowrap; }
+.lesson-answer__symbol { display: grid; place-items: center; width: 102px; height: 102px; border-radius: 50%; color: #8b9bae; }
+.lesson-answer--selected { border-color: #f25c05; background: #fffaf6; color: #f25c05; }
+.lesson-answer--selected .lesson-answer__symbol { background: #fce6db; color: #f25c05; }
+.lesson-answer__check { position: absolute; right: 17px; top: 17px; display: grid; place-items: center; width: 43px; height: 43px; border: 6px solid #f25c05; border-radius: 50%; color: #f25c05; background: white; }
+.lesson-quiz__check-wrap { position: absolute; left: 1120px; top: 911px; width: 670px; height: 104px; }
+.lesson-quiz__check { width: 100%; height: 100%; display: grid; place-items: center; border-radius: 32px; background: #ffce00; box-shadow: 0 9px #d68c00; font-size: 38px; font-weight: 800; color: white; }
+.lesson-quiz__check--correct { background: #f25c05; box-shadow: 0 9px #c04a07; }
+.lesson-quiz__back { position: absolute; left: 960px; top: 911px; width: 128px; height: 113px; display: grid; place-items: center; border: 5px solid #e4e6ea; border-radius: 32px; color: #3f3d65; }
+.lesson-quiz__confirmation { position: absolute; left: 125px; top: 925px; width: 760px; text-align: center; font-size: 40px; font-weight: 700; color: #f25c05; }
+.atomiq-feature { position: absolute; inset: 0; }
+.atomiq-feature h1 { position: absolute; left: 125px; top: 375px; width: 850px; margin: 0; font-size: 142px; line-height: 1.08; font-weight: 800; letter-spacing: -.065em; }
+.atomiq-feature__accent { position: absolute; left: 1040px; top: 275px; width: 980px; height: 1100px; background: linear-gradient(135deg, #fff5e3, #ffe0a4); border-radius: 50%; }
+.atomiq-feature__art { position: absolute; left: 1090px; top: 230px; width: 650px; height: 650px; }
+.atomiq-feature__art img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.atomiq-lessons__hand { position: absolute; left: 215px; top: 380px; width: 40px; height: 48px; transform-origin: 46.25% 4.17%; pointer-events: none; }
+.atomiq-lessons__hand svg { display: block; width: 100%; height: 100%; }

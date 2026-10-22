@@ -1,0 +1,94 @@
+/* Native app UI reconstructed from the supplied picker and profile references. */
+.minigames-demo { position: absolute; inset: 0; overflow: hidden; color: #343435; }
+.minigames-demo__heading { position: absolute; left: 125px; top: 225px; margin: 0; font-size: 148px; line-height: 1.05; font-weight: 800; letter-spacing: -.065em; }
+.minigames-demo__copy { position: absolute; left: 136px; top: 420px; font-size: 78px; font-weight: 700; line-height: 1.1; letter-spacing: -.05em; color: #322d28; }
+.minigames-demo__landscape { position: absolute; inset: 0; pointer-events: none; }
+.minigames-demo__landscape i { position: absolute; left: 1080px; top: 190px; width: 1180px; height: 1300px; border-radius: 50%; background: linear-gradient(140deg, #fff5e1, #ffd68d); }
+.minigames-demo__landscape i + i { left: -180px; top: 995px; width: 1500px; height: 600px; background: #fff2dc; }
+.minigames-demo__device { position: absolute; left: 1240px; top: 48px; width: 466px; height: 1000px; padding: 10px; background: #252b26; border-radius: 66px; box-shadow: 0 28px 65px #50371625, inset 0 0 0 3px #697565; }
+.minigames-demo__screen { position: relative; width: 446px; height: 980px; border-radius: 56px; overflow: hidden; background: #fff6e7; }
+.gamified-screen { position: absolute; width: 946px; height: 2048px; background: linear-gradient(#fff3de, #fffbf6 72%, white); transform: scale(.47145877); transform-origin: 0 0; color: #343435; font-size: 32px; font-weight: 700; }
+.gamified-status { position: absolute; top: 38px; left: 84px; right: 52px; display: flex; align-items: center; justify-content: space-between; font-size: 38px; letter-spacing: -.02em; color: #070707; }
+.gamified-status > div { display: flex; align-items: center; gap: 16px; }
+.gamified-status strong { font-size: 29px; background: #ffd000; border-radius: 10px; padding: 0 7px; line-height: 36px; }
+.gamified-nav { position: relative; width: 770px; height: 185px; border: 5px solid #e4e6eb; border-bottom-width: 12px; border-radius: 85px; background: white; box-shadow: 0 25px 44px #27222e12; display: flex; align-items: center; justify-content: space-evenly; }
+.gamified-nav > div { position: relative; }
+.gamified-nav img { width: 98px; height: 98px; object-fit: contain; }
+.gamified-nav i { position: absolute; bottom: -36px; left: 17px; border-left: 31px solid transparent; border-right: 31px solid transparent; border-bottom: 31px solid #ef5a05; }
+.gamified-screen__nav { position: absolute; left: 89px; top: 1737px; }
+.gamified-bottom-fade { position: absolute; inset: 1850px 0 0; background: linear-gradient(#fff0, #fff 94%); pointer-events: none; }
+.game-picker__question { position: absolute; top: 182px; left: 92px; font-size: 96px; color: #eb8020; font-weight: 500; }
+.game-picker__pick { position: absolute; right: 55px; top: 136px; font-size: 154px; line-height: 1; color: #35325d; font-weight: 800; letter-spacing: -.06em; }
+.game-picker__a { position: absolute; left: 431px; top: 375px; font-size: 62px; line-height: 1; color: #35325d; }
+.game-picker__game { position: absolute; right: 55px; top: 300px; font-size: 154px; color: #ff8a00; line-height: 1; font-weight: 800; letter-spacing: -.065em; }
+.game-picker__arrow { position: absolute; right: 32px; top: 462px; color: #8b9bad; }
+.game-picker__choice { position: absolute; left: -52px; width: 1050px; height: 264px; transform: rotate(-4deg); }
+.gamified-choice { position: relative; display: flex; align-items: center; width: 1050px; height: 264px; padding-left: 270px; gap: 50px; border-radius: 42px; background: white; box-shadow: 0 15px 36px #22160705; }
+.gamified-choice__symbol { display: grid; place-items: center; width: 156px; height: 156px; border-radius: 50%; flex: 0 0 auto; }
+.gamified-choice__name { font-size: 50px; font-weight: 800; letter-spacing: -.045em; }
+.gamified-choice--expanded { width: 510px; height: 230px; padding-left: 30px; gap: 28px; border: 2px solid #f4ede5; box-shadow: 0 20px 42px #5833140c; }
+.gamified-choice--expanded .gamified-choice__symbol { width: 126px; height: 126px; }
+.gamified-choice--expanded .gamified-choice__symbol svg { width: 70px; height: 70px; }
+.gamified-choice--expanded .gamified-choice__name { max-width: 300px; font-size: 36px; line-height: 1.15; }
+.minigames-demo__choices { position: absolute; inset: 0; }
+.minigames-demo__choice { position: absolute; width: 510px; height: 230px; }
+.minigames-demo__choice--0 { left: 735px; top: 295px; }
+.minigames-demo__choice--1 { left: 1270px; top: 295px; }
+.minigames-demo__choice--2 { left: 735px; top: 580px; }
+.minigames-demo__choice--3 { left: 1270px; top: 580px; }
+.minigames-demo__dock { position: absolute; left: 930px; top: 875px; width: 770px; height: 185px; transform-origin: 0 0; }
+.minigames-demo__hand { position: absolute; left: 637px; top: 86px; width: 80px; height: 96px; transform-origin: 46.25% 4.17%; pointer-events: none; }
+.minigames-demo__hand svg { display: block; width: 100%; height: 100%; }
+.minigames-demo__tap { position: absolute; left: 621px; top: 37px; width: 106px; height: 106px; border: 5px solid #ffad36; border-radius: 50%; pointer-events: none; }
+.gamified-profile__tools { position: absolute; top: 143px; left: 48px; right: 50px; display: flex; gap: 24px; color: #555; }
+.gamified-profile__tools > div { display: grid; place-items: center; width: 98px; height: 98px; background: white; border-radius: 50%; box-shadow: 0 15px 25px #6845140b; }
+.gamified-profile__tools > div:first-child { margin-right: auto; }
+.gamified-profile__identity { position: absolute; left: 48px; top: 279px; }
+.gamified-profile__streak { position: absolute; left: 48px; top: 803px; }
+.gamified-profile__awards { position: absolute; left: 48px; top: 1065px; }
+.gamified-profile__leaderboard { position: absolute; left: 48px; top: 1455px; }
+.gamified-identity { position: relative; width: 850px; height: 476px; border-radius: 64px; background: #ffd064; box-shadow: 0 20px 30px #7b602b12; }
+.gamified-identity__rank { position: absolute; left: 34px; top: 29px; width: 324px; height: 98px; border-radius: 35px; background: #434442; color: white; display: flex; align-items: center; justify-content: center; gap: 13px; font-size: 24px; }
+.gamified-identity__stats { position: absolute; right: 30px; top: 29px; width: 98px; height: 98px; border: 5px solid #ffe39a; border-radius: 32px; background: white; color: #ff8a00; display: grid; place-items: center; }
+.gamified-identity__card { position: absolute; left: 24px; top: 155px; width: 802px; height: 296px; border: 6px solid #e4e6ea; border-radius: 50px; background: white; }
+.gamified-identity__avatar { position: absolute; left: 40px; top: 40px; width: 200px; height: 200px; }
+.gamified-identity__avatar img { width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 7px solid #fff4df; background: #e2f49d; }
+.gamified-identity__avatar b { position: absolute; left: 136px; top: 136px; width: 72px; height: 72px; border: 7px solid white; border-radius: 50%; display: grid; place-items: center; background: #ff8a00; color: white; font-size: 25px; }
+.gamified-identity__name { position: absolute; left: 276px; top: 43px; font-size: 40px; }
+.gamified-identity__level { position: absolute; left: 276px; top: 119px; font-size: 25px; }
+.gamified-identity__xp { position: absolute; right: 38px; top: 119px; font-size: 24px; color: #ed8020; }
+.gamified-identity__bar { position: absolute; left: 276px; top: 171px; width: 476px; height: 25px; background: #fff3df; border-radius: 20px; }
+.gamified-identity__next { position: absolute; left: 276px; top: 211px; font-size: 22px; font-weight: 500; color: #939695; }
+.gamified-streak { position: relative; width: 850px; height: 214px; border-radius: 60px; background: white; box-shadow: 0 20px 30px #7b602b09; }
+.gamified-streak__sun { position: absolute; left: 44px; top: 44px; width: 126px; height: 126px; display: grid; place-items: center; border-radius: 50%; color: #eb8020; background: #fff3df; }
+.gamified-streak__text { position: absolute; left: 204px; top: 68px; }
+.gamified-streak__text b { display: block; font-size: 32px; line-height: 1.2; }
+.gamified-streak__text small { display: block; margin-top: 9px; font-size: 23px; font-weight: 500; color: #939695; }
+.gamified-panel-arrow { position: absolute; right: 44px; top: 64px; display: grid; place-items: center; width: 82px; height: 82px; border-radius: 50%; color: #eb8020; background: #fff3df; }
+.gamified-awards { position: relative; width: 850px; height: 340px; border-radius: 60px; background: white; box-shadow: 0 20px 30px #7b602b09; }
+.gamified-panel-title { position: absolute; left: 50px; top: 55px; font-size: 32px; font-weight: 800; letter-spacing: -.03em; }
+.gamified-panel-chip { position: absolute; right: 48px; top: 48px; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 24px; border-radius: 50px; font-size: 21px; line-height: 1.1; color: #eb8020; background: #fff3df; }
+.gamified-awards__row { position: absolute; left: 48px; right: 48px; top: 137px; display: flex; justify-content: space-between; }
+.gamified-awards__item { width: 145px; text-align: center; color: #a3aab6; }
+.gamified-awards__item > div { margin: 0 auto; width: 116px; height: 116px; display: grid; place-items: center; border-radius: 50%; color: #cbd0d8; background: #f7f8fa; }
+.gamified-awards__item b { display: block; margin-top: 17px; font-size: 19px; font-weight: 700; white-space: nowrap; }
+.gamified-leaderboard { position: relative; width: 850px; height: 540px; border-radius: 60px; background: white; box-shadow: 0 20px 30px #7b602b09; }
+.gamified-leaderboard--compact { height: 320px; }
+.gamified-leaderboard__ranking { position: absolute; left: 50px; right: 45px; top: 168px; display: flex; align-items: center; gap: 28px; }
+.gamified-leaderboard__trophy { width: 98px; height: 98px; border-radius: 50%; background: #fff3df; color: #ef8b39; display: grid; place-items: center; }
+.gamified-leaderboard__ranking b { display: block; font-size: 29px; }
+.gamified-leaderboard__ranking small { display: block; margin-top: 8px; font-size: 22px; font-weight: 500; color: #989b9b; }
+.gamified-leaderboard__ranking .gamified-panel-arrow { right: 0; top: 9px; }
+.gamified-leaderboard__unplayed { position: absolute; left: 50px; right: 50px; top: 475px; display: flex; align-items: center; gap: 26px; }
+.gamified-leaderboard__unplayed > b { color: #ed8020; background: #fff3df; border-radius: 50%; width: 52px; height: 52px; display: grid; place-items: center; font-size: 23px; }
+.gamified-leaderboard__maze { width: 64px; height: 64px; border-radius: 22px; background: linear-gradient(90deg, #8de4e8 45%, white 45% 54%, #8de4e8 54%); }
+.gamified-leaderboard__unplayed strong { display: block; font-size: 28px; }
+.gamified-leaderboard__unplayed small { display: block; font-size: 22px; color: #989b9b; }
+.gamified-leaderboard__unplayed i { margin-left: auto; font-style: normal; color: #aaa; }
+.minigames-demo__extraction { position: absolute; left: 125px; }
+.gamified-profile[data-profile-focus="streak"] :is(.gamified-profile__identity, .gamified-profile__awards, .gamified-profile__leaderboard),
+.gamified-profile[data-profile-focus="awards"] :is(.gamified-profile__identity, .gamified-profile__streak, .gamified-profile__leaderboard),
+.gamified-profile[data-profile-focus="leaderboard"] :is(.gamified-profile__identity, .gamified-profile__streak, .gamified-profile__awards) { opacity: .3; }
+.gamified-profile[data-profile-focus="streak"] .gamified-streak,
+.gamified-profile[data-profile-focus="awards"] .gamified-awards,
+.gamified-profile[data-profile-focus="leaderboard"] .gamified-leaderboard { box-shadow: 0 0 0 6px #ffbd58; }

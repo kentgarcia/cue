@@ -1,0 +1,32 @@
+.myth-fact { position: absolute; inset: 0; overflow: hidden; color: #3f3d65; }
+.myth-fact__green { position: absolute; inset: 0; background: #22a565; }
+.myth-fact__vote { position: absolute; inset: 0; }
+.myth-fact h1 { position: absolute; top: 100px; left: 125px; right: 125px; margin: 0; text-align: center; font-size: 106px; font-weight: 800; letter-spacing: -.065em; line-height: 1.15; }
+.myth-fact__card-wrap { position: absolute; left: 590px; top: 290px; width: 740px; height: 566px; transform-origin: 50% 85%; }
+.myth-fact__card .lesson-question__lab { margin-top: 35px; }
+.myth-fact__card .lesson-question__audio { margin-top: 22px; }
+.myth-fact__banana { color: #d99914; margin-top: 17px; height: 148px; }
+.myth-fact__statement { margin-top: 20px; text-align: center; font-size: 62px; line-height: 1.12; letter-spacing: -.045em; font-weight: 750; }
+.myth-fact__choice { position: absolute; top: 435px; width: 300px; display: flex; flex-direction: column; align-items: center; gap: 17px; }
+.myth-fact__choice--myth { left: 150px; color: #cb6882; }
+.myth-fact__choice--fact { right: 150px; color: #249b65; }
+.myth-fact__choice > div { font-size: 74px; font-weight: 800; line-height: 1; letter-spacing: -.055em; }
+.myth-fact__choice > small { font-size: 27px; font-weight: 550; }
+.myth-fact__instruction { position: absolute; left: 400px; right: 400px; top: 917px; text-align: center; font-size: 29px; font-weight: 550; color: #9294a3; }
+.myth-fact__stamp { position: absolute; right: 38px; top: 140px; padding: 13px 24px; border: 5px solid #249b65; border-radius: 18px; display: flex; align-items: center; gap: 13px; color: #249b65; background: #f2fff7; font-size: 43px; font-weight: 850; transform: rotate(10deg); }
+.myth-fact__result { position: absolute; inset: 0; color: white; }
+.myth-fact__correct-label { position: absolute; top: 128px; left: 814px; display: flex; align-items: center; gap: 13px; font-size: 30px; font-weight: 700; }
+.myth-fact__result h2 { position: absolute; left: 800px; top: 184px; margin: 0; font-size: 144px; line-height: 1; font-weight: 850; letter-spacing: -.065em; }
+.myth-fact__result-statement { position: absolute; left: 812px; top: 352px; font-size: 39px; font-weight: 650; letter-spacing: -.035em; }
+.myth-fact__explanation { position: absolute; inset: 0; }
+.myth-fact__schrodi { position: absolute; left: 105px; top: 330px; width: 660px; height: 550px; }
+.myth-fact__schrodi img { width: 100%; height: 100%; object-fit: contain; }
+.myth-fact__bubble { position: absolute; left: 800px; top: 454px; width: 942px; padding: 42px 48px 46px; border-radius: 38px; border-bottom: 9px solid #d4efdf; background: white; color: #343c4e; }
+.myth-fact__bubble::before { content: ""; position: absolute; left: -25px; top: 110px; width: 50px; height: 50px; background: white; transform: rotate(45deg); border-radius: 5px; }
+.myth-fact__speaker { position: relative; font-size: 30px; font-weight: 800; color: #18754b; display: flex; gap: 20px; align-items: center; }
+.myth-fact__speaker small { font-size: 21px; font-weight: 550; color: #8b9690; }
+.myth-fact__reply { position: relative; margin-top: 27px; font-size: 39px; line-height: 1.25; letter-spacing: -.035em; font-weight: 600; }
+.myth-fact__reply b { color: #168a52; }
+.myth-fact__reason { position: relative; margin-top: 20px; font-size: 38px; line-height: 1.38; letter-spacing: -.035em; font-weight: 500; }
+.myth-fact__reason b { color: #18754b; font-weight: 750; }
+.myth-fact__source { position: absolute; left: 810px; top: 935px; color: #e1ffed; font-size: 21px; font-weight: 500; }
