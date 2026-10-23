@@ -1,33 +1,34 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import { recordDemo, expectDemoStages } from "./automatic-playback";
 const player = (page: Page) => page.getByTestId("presentation-player");
 async function hold(page: Page, frame: number) {
   await expect(player(page)).toHaveAttribute("data-frame", String(frame), { timeout: 20000 });
   await expect(player(page)).toHaveAttribute("data-phase", "paused");
 }
 
-test("one cue plays the whole Schrödi conversation and rewind restores the introduction", async ({ page }) => {
+test("Schrödi holds its introduction then automatically plays the full conversation", async ({ page }) => {
   test.setTimeout(45000);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
+  await recordDemo(page, "schrodi-demo", "data-chat-stage");
   await page.getByRole("button", { name: /Go to slide 11: Schrödi/ }).click();
-  await hold(page, 48);
   const demo = player(page).getByTestId("schrodi-demo");
   const mascot = player(page).getByTestId("schrodi-mascot");
   await expect(demo).toHaveAttribute("data-chat-stage", "introduction");
   await expect(player(page).locator(".schrodi-chat__subtitle")).toHaveText("Science Assistant");
   await expect(player(page).locator(".schrodi-demo__description")).toHaveText("Science Assistant");
   await expect(demo).not.toContainText(/\bAI\b/);
-  await expect(page.getByRole("button", { name: /^Seek to cue / })).toHaveCount(2);
+  await expect(page.getByRole("button", { name: /^Seek to cue / })).toHaveCount(1);
   await expect(player(page).locator("[data-chat-role]")).toHaveCount(0);
   await player(page).screenshot({ path: "test-results/schrodi-introduction.png" });
-  await player(page).click();
-  await expect(player(page)).toHaveAttribute("data-target", "432");
+  await expect(player(page)).toHaveAttribute("data-target", "468");
   await expect(player(page)).toHaveAttribute("data-phase", "playing");
   await expect(player(page).getByTestId("schrodi-typing")).toBeVisible();
   await expect(player(page).getByTestId("schrodi-message-0")).toHaveText("What is an atom?");
-  // No further click: both replies and the follow-up must complete automatically.
-  await hold(page, 432);
+  // No click after entering: both replies and the follow-up complete automatically.
+  await hold(page, 468);
+  await expectDemoStages(page, ["introduction", "atom-question", "atom-answer", "nucleus-question", "nucleus-answer"], 48);
   await expect(mascot).toHaveAttribute("data-pose", "idea");
   await expect(player(page).locator("[data-chat-role]")).toHaveCount(4);
   await expect(player(page).getByTestId("schrodi-message-1")).toContainText("tiny building block of matter");
@@ -40,13 +41,13 @@ test("one cue plays the whole Schrödi conversation and rewind restores the intr
   expect(last.y + last.height).toBeLessThan(composer.y);
   await player(page).screenshot({ path: "test-results/schrodi-conversation.png" });
   await page.keyboard.press("ArrowLeft");
-  await hold(page, 48);
+  await hold(page, 0);
   await expect(mascot).toHaveAttribute("data-pose", "happy_2");
   await expect(player(page).locator("[data-chat-role]")).toHaveCount(0);
   await player(page).click();
-  await expect(player(page)).toHaveAttribute("data-target", "432");
+  await expect(player(page)).toHaveAttribute("data-target", "468");
   await page.getByRole("button", { name: "Restart slide", exact: true }).click();
-  await hold(page, 48);
+  await expect(player(page)).toHaveAttribute("data-phase", "playing");
   await expect(player(page).locator("[data-chat-role]")).toHaveCount(0);
   await expect(page.locator('.slide-card [data-schrodi-idle="playing"]')).toHaveCount(0);
 });
@@ -82,11 +83,10 @@ test("Schrödi respects reduced motion and fits the whole conversation on a narr
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page.getByRole("button", { name: /Go to slide 11: Schrödi/ }).click();
-  await hold(page, 48);
   await expect(player(page).getByTestId("schrodi-demo")).toHaveAttribute("data-schrodi-idle", "still");
   await expect(player(page).getByTestId("schrodi-mascot")).toHaveCSS("transform", "none");
   await page.getByRole("button", { name: /^Seek to cue / }).last().click();
-  await hold(page, 432);
+  await hold(page, 468);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(await player(page).evaluate(element => {
     const canvas = element.getBoundingClientRect();

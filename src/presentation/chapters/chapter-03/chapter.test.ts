@@ -20,6 +20,24 @@ describe("Chapters 03–04 presenter gates", () => {
     expect(presentation.slides.filter((slide) => slide.id === "chapter-04-human")).toHaveLength(1);
   });
 
+  it.each([[8, 288], [9, 372], [10, 468]])("plays slide index %i through its full demo, then holds", (index, finalFrame) => {
+    const controller = new PlaybackController(presentation);
+    controller.goToSlide(index);
+    controller.finishTransition(controller.getSnapshot().revision);
+    expect(controller.getSnapshot()).toMatchObject({ frame: 0, targetFrame: finalFrame, phase: "playing" });
+    controller.onFrame(100, controller.getSnapshot().revision);
+    controller.toggle();
+    expect(controller.getSnapshot()).toMatchObject({ frame: 100, phase: "paused" });
+    controller.toggle();
+    expect(controller.getSnapshot()).toMatchObject({ frame: 100, targetFrame: finalFrame, phase: "playing" });
+    controller.onEnded(controller.getSnapshot().revision);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: index, frame: finalFrame, phase: "paused" });
+    controller.previous();
+    expect(controller.getSnapshot()).toMatchObject({ frame: 0, phase: "paused" });
+    controller.restart();
+    expect(controller.getSnapshot()).toMatchObject({ frame: 0, targetFrame: finalFrame, phase: "playing" });
+  });
+
   it("does not put the quiz answer in rendered markup before the reveal cue, including reverse seeks", () => {
     for (const reducedMotion of [false, true]) {
       for (const [frame, revealed] of [[0, false], [24, false], [120, true], [24, false], [0, false]] as const) {

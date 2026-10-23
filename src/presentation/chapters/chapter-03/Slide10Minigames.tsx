@@ -2,7 +2,7 @@ import { Easing, interpolate, useCurrentFrame } from "remotion";
 import type { CSSProperties } from "react";
 import type { SlideProps } from "../../../engine/types";
 import { ChapterCanvas, ramp } from "../chapter-01/motion";
-import { chapterTheme } from "./theme";
+import { chapterTheme, featureDemoFrame } from "./theme";
 import { GameChoice, GamePicker, GamifiedProfile, ProductHand, ProductNav, ProfileAwards, ProfileLeaderboard, ProfileStreak } from "./GamifiedUI";
 import type { ProfileFocus } from "./GamifiedUI";
 import "./minigames.css";
@@ -24,7 +24,8 @@ function extractionStyle(frame: number, start: number, end: number, top: number,
 
 /** A cue-driven product film: picker → game choices → profile → three enlarged progress panels. */
 export function Slide10Minigames({ reducedMotion }: SlideProps) {
-  const frame = useCurrentFrame();
+  const timelineFrame = useCurrentFrame();
+  const frame = featureDemoFrame(timelineFrame, 54);
   const entry = ramp(frame, 0, 43);
   const spread = ramp(frame, 55, 88);
   const leaveGames = ramp(frame, 134, 157);
@@ -34,7 +35,7 @@ export function Slide10Minigames({ reducedMotion }: SlideProps) {
   const focus: ProfileFocus = frame >= 283 ? "leaderboard" : frame >= 229 ? "awards" : frame >= 175 ? "streak" : "overview";
   const compactHeading = reducedMotion && frame >= 55;
   const stage = frame >= 283 ? "leaderboard" : frame >= 229 ? "awards" : frame >= 175 ? "streak" : frame >= 139 ? "profile" : frame >= 112 ? "opening-profile" : frame >= 55 ? "games" : "picker";
-  return <ChapterCanvas chapter="03" frame={frame} background={chapterTheme.colors.light}>
+  return <ChapterCanvas chapter="03" frame={timelineFrame} background={chapterTheme.colors.light}>
     <div className="minigames-demo" data-testid="minigames-demo" data-games-stage={stage}>
       <div className="minigames-demo__landscape" aria-hidden="true"><i /><i /></div>
       <h1 className="minigames-demo__heading" style={{ opacity: ramp(frame, 0, 20), top: compactHeading ? 85 : undefined, fontSize: compactHeading ? 86 : undefined, transformOrigin: "0 0", transform: reducedMotion ? undefined : `translate3d(0, ${-140 * spread}px, 0) scale(${1 - .42 * spread})` }}>Minigames.</h1>

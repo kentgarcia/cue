@@ -3,7 +3,7 @@ import type { Page } from "@playwright/test";
 
 const player = (page: Page) => page.getByTestId("presentation-player");
 async function hold(page: Page, frame: number) {
-  await expect(player(page)).toHaveAttribute("data-frame", String(frame));
+  await expect(player(page)).toHaveAttribute("data-frame", String(frame), { timeout: 10000 });
   await expect(player(page)).toHaveAttribute("data-phase", "paused");
   await expect(player(page).locator("[data-slide-frame]")).toHaveAttribute("data-slide-frame", String(frame));
 }
@@ -64,23 +64,21 @@ test("Chapter 02 reveals full-height image columns over centered NUCLEAR and rev
   expect(errors).toEqual([]);
 });
 
-test("four real comic panels reveal independently and the final question stands alone", async ({ page }) => {
+test("four comic panels reveal automatically one by one without an opening question", async ({ page }) => {
   await page.goto("/");
-  await openSlide(page, 5, 14);
-  await expect(player(page).getByRole("heading", { name: "What comes to mind?", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /Go to slide 5:/ }).click();
+  await expect(player(page)).toHaveAttribute("data-target", "114");
+  await expect(player(page).getByRole("heading", { name: "What comes to mind?", exact: true })).toHaveCount(0);
   const visible = player(page).locator('[data-comic-panel] [data-testid^="fiction-"][aria-hidden="false"]');
-  await expect(visible).toHaveCount(0);
   const names = ["Teenage Mutant Ninja Turtles", "Hulk", "Gagamboy", "The Powerpuff Girls"];
-  for (const [index, frame] of [31, 48, 65, 82].entries()) {
-    await player(page).click();
-    await hold(page, frame);
+  for (const [index, name] of names.entries()) {
     await expect(visible).toHaveCount(index + 1);
-    const image = visible.nth(index).getByRole("img", { name: names[index]!, exact: true });
+    const image = visible.nth(index).getByRole("img", { name, exact: true });
     await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
     await expect(image).toHaveCSS("object-fit", "cover");
-    await expect(player(page).getByTestId("fiction-question")).toHaveCSS("opacity", "0");
-    await player(page).screenshot({ path: `test-results/comic-panel-${index + 1}.png` });
   }
+  await hold(page, 114);
+  await player(page).screenshot({ path: "test-results/comic-panels-automatic.png" });
   await expect(player(page).locator("figcaption, [data-placeholder=true]")).toHaveCount(0);
   const panels = await player(page).locator("[data-comic-panel]").evaluateAll(elements => elements.map(element => {
     const bounds = element.getBoundingClientRect();
@@ -91,13 +89,14 @@ test("four real comic panels reveal independently and the final question stands 
     expect(Math.abs(panel.height - panel.canvasHeight)).toBeLessThan(1);
     expect(panel.clip).toMatch(/^polygon/);
   }
+  await page.waitForTimeout(500);
+  await hold(page, 114);
   await page.keyboard.press("ArrowLeft");
-  await hold(page, 65);
-  await expect(visible).toHaveCount(3);
-  await page.getByRole("button", { name: "Restart slide", exact: true }).click();
-  await hold(page, 14);
+  await hold(page, 0);
   await expect(visible).toHaveCount(0);
-  await expect(player(page).getByRole("heading", { name: "What comes to mind?", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Restart slide", exact: true }).click();
+  await hold(page, 114);
+  await expect(visible).toHaveCount(4);
   await openSlide(page, 7, 24);
   await expect(player(page).getByRole("heading", { name: "What if we could change the way people see nuclear science?" })).toBeVisible();
   await expect(player(page).locator("img, svg, [data-media]")).toHaveCount(0);
@@ -127,6 +126,7 @@ test("opportunity uses the real local poster and survives a missing media asset"
   expect(Math.abs(bounds.y - canvas.y)).toBeLessThan(1);
   await player(page).screenshot({ path: "test-results/slide-6-poster.png" });
   await page.route("**/media/slide-6/poster.png", (route) => route.abort());
+  await page.route("**/media/optimized/poster.*.webp", (route) => route.abort());
   await page.reload();
   await openSlide(page, 6, 24);
   await expect(player(page).getByRole("img", { name: "Image placeholder: Myth Smashers competition announcement", exact: true })).toBeVisible();
@@ -151,14 +151,10 @@ test("Chapter 02 respects reduced motion and keeps the final question centered",
 test("Chapter 02 has centered, contained typography and reviewable motion frames", async ({ page }) => {
   await page.setViewportSize({ width: 1560, height: 1080 });
   await page.goto("/");
-  for (const [number, entry, final] of [[4, 14, 82], [5, 14, 82], [6, 24, 24], [7, 24, 24]]) {
+  for (const [number, entry, final] of [[4, 14, 82], [5, 114, 114], [6, 24, 24], [7, 24, 24]]) {
     await openSlide(page, number!, entry!);
     if (number === 4) {
       await page.getByRole("button", { name: "Seek to cue 5: Disasters", exact: true }).click();
-      await hold(page, final!);
-    }
-    if (number === 5) {
-      await page.getByRole("button", { name: "Seek to cue 5: Powerpuff Girls", exact: true }).click();
       await hold(page, final!);
     }
     const fits = await player(page).evaluate((element) => {
@@ -192,9 +188,7 @@ test("nuclear columns fade in place for reduced motion", async ({ page }) => {
 test("comic panel images fade in place with reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await openSlide(page, 5, 14);
-  await page.getByRole("button", { name: "Seek to cue 5: Powerpuff Girls", exact: true }).click();
-  await hold(page, 82);
+  await openSlide(page, 5, 114);
   for (const panel of await player(page).locator('[data-comic-panel] [data-testid^="fiction-"][aria-hidden="false"]').all()) {
     await expect(panel).toHaveCSS("transform", "none");
     await expect(panel).toHaveCSS("opacity", "1");

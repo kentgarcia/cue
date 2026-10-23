@@ -16,9 +16,6 @@ export const comicPanels = [
 export function Slide05Fiction({ reducedMotion }: SlideProps) {
   const frame = useCurrentFrame();
   return <ChapterCanvas chapter="02" frame={frame} background={chapterTheme.colors.light}>
-    <div data-testid="fiction-question" aria-hidden={frame > 14} style={{ position: "absolute", inset: 0, padding: "0 128px", display: "grid", placeItems: "center", textAlign: "center", opacity: ramp(frame, 0, 10) * (1 - ramp(frame, 14, 17)) }}>
-      <h1 style={{ margin: 0, fontSize: 112, fontWeight: 800, letterSpacing: "-0.06em", lineHeight: 1.1 }}>What comes to mind?</h1>
-    </div>
     {characterAssets.map((asset, index) => {
       const panel = comicPanels[index]!;
       const width = panel.right - panel.left;

@@ -4,7 +4,7 @@ import { ArrowUp, Sparkles } from "lucide-react";
 import { Img, useCurrentFrame } from "remotion";
 import type { SlideProps } from "../../../engine/types";
 import { ChapterCanvas, ramp } from "../chapter-01/motion";
-import { chapterTheme } from "./theme";
+import { chapterTheme, featureDemoFrame } from "./theme";
 import "./schrodi.css";
 
 export const schrodiConversation = [
@@ -39,7 +39,8 @@ const ChatBackdrop = memo(function ChatBackdrop() {
 });
 
 export function Slide11Schrodi({ reducedMotion, ambientMotion = false }: SlideProps) {
-  const frame = useCurrentFrame();
+  const timelineFrame = useCurrentFrame();
+  const frame = featureDemoFrame(timelineFrame, 48);
   const entry = ramp(frame, 0, 38);
   const thinking = (frame >= 84 && frame < 127) || (frame >= 296 && frame < 343);
   const pose = frame >= 344 ? "idea" : frame >= 294 ? "thinking" : frame >= 128 ? "explain" : frame >= 82 ? "thinking" : "happy_2";
@@ -47,7 +48,7 @@ export function Slide11Schrodi({ reducedMotion, ambientMotion = false }: SlidePr
   const composing = frame >= 50 && frame < 72 ? 0 : frame >= 264 && frame < 286 ? 2 : null;
   const sendPress = ramp(frame, 68, 72) * (1 - ramp(frame, 72, 78)) + ramp(frame, 282, 286) * (1 - ramp(frame, 286, 292));
   const live = ambientMotion && !reducedMotion;
-  return <ChapterCanvas chapter="03" frame={frame} background={chapterTheme.colors.light}>
+  return <ChapterCanvas chapter="03" frame={timelineFrame} background={chapterTheme.colors.light}>
     <div className="schrodi-demo" data-testid="schrodi-demo" data-chat-stage={stage} data-schrodi-idle={live ? "playing" : "still"}>
       <ChatBackdrop />
       <h1 style={{ opacity: ramp(frame, 0, 24), transform: reducedMotion ? undefined : `translate3d(0, ${24 * (1 - entry)}px, 0)` }}>Meet Schrödi.</h1>

@@ -31,10 +31,10 @@ const presentation = {
 const transitionFramesFor = (index: number) => (presentation.slides[index] as SlideDefinition).transitionFrames ?? presentation.transitionFrames;
 const transitions = params.has("transitions");
 const kinetic = params.has("kinetic");
-const reviewFrames = mythFact ? [[24, 35, 44, 60, 86, 120]] : schrodi ? [[48, 64, 96, 134, 168, 222, 312, 350, 432]] : minigames ? [[28, 54, 108, 130, 174, 228, 282, 336]] : lessons ? [[28, 54, 90, 108, 114, 143, 174, 210, 252]] : atomiq ? [[0, 12, 28, 48, 68, 90]] : laterChapter
+const reviewFrames = mythFact ? [[24, 35, 44, 60, 86, 120]] : schrodi ? [[48, 100, 132, 170, 204, 258, 348, 386, 468]] : minigames ? [[28, 54, 144, 166, 210, 264, 318, 372]] : lessons ? [[28, 54, 126, 144, 150, 179, 210, 246, 288]] : atomiq ? [[0, 12, 28, 48, 68, 90]] : laterChapter
   ? presentation.slides.map((slide) => [0, Math.floor(slide.durationInFrames / 2), ...slide.checkpoints.slice(1)].filter((frame, index, frames) => frames.indexOf(frame) === index).sort((a, b) => a - b))
   : chapterTwo
-  ? [[0, 31, 82], [0, 14, 31, 48, 65, 82], [0, 12, 24], [0, 10, 24]]
+  ? [[0, 31, 82], [0, 15, 45, 75, 105, 114], [0, 12, 24], [0, 10, 24]]
   : kinetic
   ? ([
       [4, 9, 18, 30],

@@ -32,9 +32,9 @@ export const chapterTwoSlides = [
     component: Slide05Fiction,
     durationInFrames: chapterTwoTiming.fiction.duration,
     checkpoints: chapterTwoTiming.fiction.checkpoints,
-    checkpointLabels: ["Start", "Ask the audience", "Ninja Turtles", "Hulk", "Gagamboy", "Powerpuff Girls"],
+    checkpointLabels: ["Start", "Four comic panels"],
     background: chapterTheme.colors.light,
-    notes: "MICHELLE · Hold on ‘What comes to mind?’ first. Reveal the supplied Teenage Mutant Ninja Turtles, Hulk, Gagamboy, and Powerpuff Girls images one click at a time. Each image occupies an angled full-height comic panel; earlier panels remain visible. Invite the audience to identify each example before advancing. The final four-panel composition stays on screen until you continue.",
+    notes: "MICHELLE · The supplied Teenage Mutant Ninja Turtles, Hulk, Gagamboy, and Powerpuff Girls images reveal automatically, one second apart. Each occupies an angled full-height comic panel; earlier panels remain visible. There is no opening question or click between images. The final four-panel composition stays on screen until you continue. Restart replays the full sequence.",
   },
   {
     ...shared,

@@ -1,7 +1,7 @@
 import { Easing, interpolate, useCurrentFrame } from "remotion";
 import type { SlideProps } from "../../../engine/types";
 import { ChapterCanvas, ramp } from "../chapter-01/motion";
-import { chapterTheme } from "./theme";
+import { chapterTheme, featureDemoFrame } from "./theme";
 import "./lessons.css";
 import { LessonAnswer, LessonMap, LessonQuestion, LessonQuizChrome } from "./LessonsUI";
 
@@ -9,7 +9,8 @@ const mapTravelEasing = Easing.bezier(...chapterTheme.easing.travel);
 
 /** All demonstration state derives from the cue frame, so rewind and restart are exact. */
 export function Slide09Lessons({ reducedMotion }: SlideProps) {
-  const frame = useCurrentFrame();
+  const timelineFrame = useCurrentFrame();
+  const frame = featureDemoFrame(timelineFrame, 54);
   const zoom = interpolate(frame, [55, 86], [0, 1], { easing: mapTravelEasing, extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const cursor = ramp(frame, 94, 108);
   const cursorOpacity = ramp(frame, 94, 100) * (1 - ramp(frame, 116, 128));
@@ -20,7 +21,7 @@ export function Slide09Lessons({ reducedMotion }: SlideProps) {
   const checked = frame >= 234;
   const checkPress = ramp(frame, 218, 226) * (1 - ramp(frame, 226, 234));
   const choosePress = ramp(frame, 108, 112) * (1 - ramp(frame, 112, 118));
-  return <ChapterCanvas chapter="03" frame={frame} background={chapterTheme.colors.light}>
+  return <ChapterCanvas chapter="03" frame={timelineFrame} background={chapterTheme.colors.light}>
     <div className="atomiq-lessons" data-testid="lessons-demo" data-lesson-stage={checked ? "checked" : selected ? "selected" : frame >= 125 ? "quiz" : frame >= 94 ? "opening-lesson" : frame >= 55 ? "map-zoom" : "map"}>
       <div className="atomiq-lessons__landscape" aria-hidden="true" style={{ opacity: entry * (1 - dive) }}><i /><i /></div>
       <h1 className="atomiq-lessons__heading" style={{ opacity: ramp(frame, 0, 18), top: reducedMotion && frame >= 55 ? 85 : undefined, fontSize: reducedMotion && frame >= 55 ? 96.28 : undefined, transformOrigin: "0 0", transform: reducedMotion ? undefined : `translate3d(0, ${-140 * Math.max(zoom, dive)}px, 0) scale(${1 - .42 * Math.max(zoom, dive)})` }}>Lessons.</h1>

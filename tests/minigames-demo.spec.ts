@@ -1,54 +1,38 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import { recordDemo, expectDemoStages } from "./automatic-playback";
 const player = (page: Page) => page.getByTestId("presentation-player");
 async function hold(page: Page, frame: number) {
-  await expect(player(page)).toHaveAttribute("data-frame", String(frame));
+  await expect(player(page)).toHaveAttribute("data-frame", String(frame), { timeout: 18000 });
   await expect(player(page)).toHaveAttribute("data-phase", "paused");
 }
 
-test("Minigames demonstrates the picker, profile, streak, awards and leaderboard at separate cues", async ({ page }) => {
-  test.setTimeout(45000);
+test("Minigames automatically demonstrates games, profile, streak, awards and leaderboard", async ({ page }) => {
+  test.setTimeout(35000);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
+  await recordDemo(page, "minigames-demo", "data-games-stage");
   await page.getByRole("button", { name: /Go to slide 10: Minigames/ }).click();
-  await hold(page, 54);
-  const demo = player(page).getByTestId("minigames-demo");
-  await expect(demo).toHaveAttribute("data-games-stage", "picker");
+  await expect(player(page)).toHaveAttribute("data-target", "372");
   for (const game of ["Myth Buster", "Atom Maze", "Lab Experiment", "Encyclopedia"]) await expect(player(page).getByTestId("game-picker-ui")).toContainText(game);
   expect(await player(page).locator("img").evaluateAll(images => images.every(image => !/mockup-/.test(image.getAttribute("src") ?? "")))).toBe(true);
-  await player(page).screenshot({ path: "test-results/minigames-picker.png" });
-  await player(page).click();
-  await hold(page, 108);
-  await expect(player(page).locator('.minigames-demo__choices [data-game-choice]')).toHaveCount(4);
-  await expect(player(page).getByTestId("profile-hand-cursor")).toHaveCSS("opacity", "0");
-  await player(page).screenshot({ path: "test-results/minigames-choices.png" });
-  await player(page).click();
-  await hold(page, 174);
-  await expect(demo).toHaveAttribute("data-games-stage", "profile");
-  await expect(player(page).getByTestId("gamified-profile-ui")).toHaveAttribute("data-profile-focus", "overview");
+  await expect(page.getByRole("button", { name: /^Seek to cue / })).toHaveCount(1);
+  await hold(page, 372);
+  await expectDemoStages(page, ["picker", "games", "opening-profile", "profile", "streak", "awards", "leaderboard"], 54);
   await expect(player(page).getByTestId("profile-identity")).toContainText("Level 1");
   await expect(player(page).getByTestId("profile-identity")).toContainText("0 XP");
-  await expect(player(page).getByTestId("streak-feature")).toHaveCSS("opacity", "0");
+  await expect(player(page).getByTestId("leaderboard-feature")).toContainText("Rank #11 of 11");
+  await expect(player(page).getByTestId("leaderboard-feature")).toHaveCSS("opacity", "1");
+  await player(page).screenshot({ path: "test-results/minigames-leaderboard.png" });
   await page.waitForTimeout(500);
-  await hold(page, 174);
-  await player(page).screenshot({ path: "test-results/minigames-profile.png" });
-  for (const [frame, focus, id, text] of [[228, "streak", "streak-feature", "0 day streak"], [282, "awards", "awards-feature", "0/5 unlocked"], [336, "leaderboard", "leaderboard-feature", "Rank #11 of 11"]] as const) {
-    await player(page).click();
-    await hold(page, frame);
-    await expect(demo).toHaveAttribute("data-games-stage", focus);
-    await expect(player(page).getByTestId(id)).toHaveCSS("opacity", "1");
-    await expect(player(page).getByTestId(id)).toContainText(text);
-    await expect(player(page).getByTestId("gamified-profile-ui")).toHaveAttribute("data-profile-focus", focus);
-    await player(page).screenshot({ path: `test-results/minigames-${focus}.png` });
-  }
+  await hold(page, 372);
   await page.keyboard.press("ArrowLeft");
-  await hold(page, 282);
-  await expect(demo).toHaveAttribute("data-games-stage", "awards");
-  await expect(player(page).getByTestId("leaderboard-feature")).toHaveCSS("opacity", "0");
-  await page.getByRole("button", { name: "Restart slide", exact: true }).click();
-  await hold(page, 54);
-  await expect(demo).toHaveAttribute("data-games-stage", "picker");
+  await hold(page, 0);
+  await expect(player(page).getByTestId("minigames-demo")).toHaveAttribute("data-games-stage", "picker");
   await expect(player(page).getByTestId("minigames-profile-device")).toHaveCSS("opacity", "0");
+  await page.getByRole("button", { name: "Restart slide", exact: true }).click();
+  await expect(player(page)).toHaveAttribute("data-target", "372");
+  await expect(player(page)).toHaveAttribute("data-phase", "playing");
 });
 
 test("Minigames storyboard shows a hand clicking Profile and preserves the supplied locked awards", async ({ page }) => {
@@ -81,10 +65,9 @@ test("Minigames supports reduced motion and its enlarged panels fit on a narrow 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page.getByRole("button", { name: /Go to slide 10: Minigames/ }).click();
-  await hold(page, 54);
   await expect(player(page).getByTestId("minigames-picker-device")).toHaveCSS("transform", "none");
   await page.getByRole("button", { name: /^Seek to cue / }).last().click();
-  await hold(page, 336);
+  await hold(page, 372);
   await expect(player(page).getByTestId("minigames-profile-device")).toHaveCSS("transform", "none");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(await player(page).getByTestId("leaderboard-feature").evaluate(element => {

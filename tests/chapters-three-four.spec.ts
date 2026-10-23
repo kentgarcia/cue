@@ -3,7 +3,7 @@ import type { Page } from "@playwright/test";
 
 const player = (page: Page) => page.getByTestId("presentation-player");
 async function hold(page: Page, frame: number) {
-  await expect(player(page)).toHaveAttribute("data-frame", String(frame));
+  await expect(player(page)).toHaveAttribute("data-frame", String(frame), { timeout: 20000 });
   await expect(player(page)).toHaveAttribute("data-phase", "paused");
   await expect(player(page).locator("[data-slide-frame]")).toHaveAttribute("data-slide-frame", String(frame));
 }
@@ -61,14 +61,14 @@ test("champion and Japan photos reveal together with centered orange titles", as
 });
 
 test("Chapters 03–04 fit the canvas, respect reduced motion, and continue to Chapter 05", async ({ page }) => {
-  test.setTimeout(90000);
+  test.setTimeout(150000);
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
   for (const reduced of [false, true]) {
     await page.emulateMedia({ reducedMotion: reduced ? "reduce" : "no-preference" });
-    for (const [number, entry, final] of [[8, 90, 90], [9, 54, 252], [10, 54, 336], [11, 48, 432], [12, 24, 120], [13, 24, 24], [14, 24, 24], [15, 24, 72], [16, 36, 36]]) {
+    for (const [number, entry, final] of [[8, 90, 90], [9, 288, 288], [10, 372, 372], [11, 468, 468], [12, 24, 120], [13, 24, 24], [14, 24, 24], [15, 24, 72], [16, 36, 36]]) {
       await open(page, number!, entry!);
       if (entry !== final) {
         await page.getByRole("button", { name: /^Seek to cue / }).last().click();

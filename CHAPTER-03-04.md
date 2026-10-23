@@ -1,13 +1,13 @@
 # Chapters 03–04 — The Idea / Beyond the Classroom: Japan
 
-The current deck has 21 slides. These chapters occupy slides 8–16. Every checkpoint holds until the presenter advances.
+The current deck has 21 slides. These chapters occupy slides 8–16. Slides 9–11 pause on the settled title for 1.2 seconds, then play their entire demonstrations automatically. Their final screens hold until the presenter advances. The audience vote on slide 12 remains presenter-controlled.
 
 | Slide | Opening hold | Following cues |
 | --- | --- | --- |
 | 8 · Meet AtomIQ | Automatic app introduction · 90 | Hold on the logo, tagline, phone and Schrödi. |
-| 9 · Lessons | Lesson map · 54 | Zoom into map · 90 → hand clicks the lesson and opens quiz · 174 → select Rutherford · 210 → check · 252. |
-| 10 · Minigames | Game picker · 54 | Four games · 108 → profile · 174 → streak · 228 → awards · 282 → leaderboard · 336. |
-| 11 · Schrödi | Science Assistant introduction · 48 | One cue plays the entire conversation · 432. |
+| 9 · Lessons | Automatic title pause | Map → zoom → hand clicks lesson → quiz → select Rutherford → check. Final hold · 288. |
+| 10 · Minigames | Automatic title pause | Picker → four games → profile → streak → awards → leaderboard. Final hold · 372. |
+| 11 · Schrödi | Automatic title pause | Full conversation runs on entry. Final hold · 468. |
 | 12 · Myth or fact? | “Bananas are radioactive.” · 24 | Wait for votes. One cue swipes right to FACT, turns the background green and shows Schrödi's explanation · 120. |
 | 13 · Champion | Full-screen photograph and bottom title together · 24 | Advance to Japan. |
 | 14 · Japan | Full-screen photograph and bottom title together · 24 | Advance to the three-column slide. |
