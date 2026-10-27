@@ -10,10 +10,10 @@ export const openingPoster = {
 
 const media = "/media/chapter-01";
 const partners = [
-  { name: "Meralco", src: `${media}/meralco.png`, x: 132 },
-  { name: "PUP", src: `${media}/edu_pup.webp`, x: 268 },
-  { name: "Explicit", src: `${media}/optimized/explicit.webp`, x: 382 },
-  { name: "AtomIQ", src: `${media}/optimized/atomiq.webp`, x: 496 },
+  { name: "YESS", src: `${media}/YESS%20Logo.png`, x: 132 },
+  { name: "PUP", src: `${media}/edu_pup.webp`, x: 484 },
+  { name: "Explicit", src: `${media}/optimized/explicit.webp`, x: 598 },
+  { name: "AtomIQ", src: `${media}/optimized/atomiq.webp`, x: 712 },
 ] as const;
 const team = [
   { name: "Michelle", src: `${media}/optimized/michelle.webp`, x: 1315, y: 315 },
@@ -138,15 +138,23 @@ const PosterArtwork = memo(function PosterArtwork() {
       <defs>
         <linearGradient id={`${id}-cream`} x2="0.4" y2="1"><stop stopColor="#fffdef" /><stop offset="1" stopColor="#fbf1d4" /></linearGradient>
         <linearGradient id={`${id}-yellow`} x2="0.3" y2="1"><stop stopColor="#fff047" /><stop offset="1" stopColor="#ffcb24" /></linearGradient>
-        {partners.map(partner => <clipPath key={partner.name} id={`${id}-logo-${partner.name}`}><circle cx={partner.x + 44} cy="135" r="44" /></clipPath>)}
+        {partners.filter(partner => partner.name !== "YESS").map(partner => <clipPath key={partner.name} id={`${id}-logo-${partner.name}`}><circle cx={partner.x + 44} cy="135" r="44" /></clipPath>)}
       </defs>
       <g data-testid="opening-foreground" fontFamily="'Event Sans', sans-serif" fill="#fff9e9">
-        <g data-editable="partner-logos" transform="translate(33 22) scale(.75)" aria-label="Meralco, PUP, Explicit, AtomIQ">
+        <g data-editable="partner-logos" transform="translate(33 22) scale(.75)" aria-label="YESS, PUP, Explicit, AtomIQ">
           {partners.map(partner => <g key={partner.name} data-partner={partner.name}>
-            <circle cx={partner.x + 44} cy="135" r="45" fill="#fff9e0" />
-            <image href={partner.src} x={partner.x} y="91" width="88" height="88" preserveAspectRatio="xMidYMid meet" clipPath={url(`logo-${partner.name}`)} role="img" aria-label={`${partner.name} logo`} />
+            {partner.name === "YESS" ? <>
+              <rect x={partner.x} y="51" width="292" height="168" rx="12" fill="#ffffff" />
+              {/* Frame the complete lockup without its square canvas's unused margins. */}
+              <svg x={partner.x + 12} y="63" width="268" height="144" viewBox="119 407 2323 1428" preserveAspectRatio="xMidYMid meet">
+                <image href={partner.src} width="2560" height="2560" role="img" aria-label="YESS logo" />
+              </svg>
+            </> : <>
+              <circle cx={partner.x + 44} cy="135" r="45" fill="#fff9e0" />
+              <image href={partner.src} x={partner.x} y="91" width="88" height="88" preserveAspectRatio="xMidYMid meet" clipPath={url(`logo-${partner.name}`)} role="img" aria-label={`${partner.name} logo`} />
+            </>}
           </g>)}
-          <path data-testid="partner-divider" d="M244 101V170" stroke="#fff8df" strokeWidth="3" />
+          <path data-testid="partner-divider" d="M456 101V170" stroke="#fff8df" strokeWidth="3" />
         </g>
         <g data-editable="intro-copy" transform="translate(33 44) scale(.75)">
         <g data-editable="presenter" transform="rotate(-4 328 253)"><ellipse cx="328" cy="253" rx="182" ry="49" stroke="#fff9e9" strokeWidth="2.5" fill="none" /><path d="M185 224Q300 192 468 220M286 309 431 296" stroke="#fff9e9" strokeWidth="2" fill="none" /><text x="205" y="255" fontSize="36" fontFamily="'Event Hand', cursive" fontWeight="700" letterSpacing="1">TEAM ATOMIQ</text><text x="268" y="283" fontSize="27" fontFamily="'Event Hand', cursive" fontWeight="700" letterSpacing="1">PRESENTS</text></g>

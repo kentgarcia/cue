@@ -11,11 +11,11 @@ test("opening recreates the reference as editable vector layers and ambience kee
   const artwork = player.getByTestId("opening-poster");
   await expect(artwork).toHaveAttribute("aria-label", posterDescription);
   await expect(player.locator("image")).toHaveCount(7);
-  expect(await player.locator("[data-partner]").evaluateAll(elements => elements.map(element => element.getAttribute("data-partner")))).toEqual(["Meralco", "PUP", "Explicit", "AtomIQ"]);
+  expect(await player.locator("[data-partner]").evaluateAll(elements => elements.map(element => element.getAttribute("data-partner")))).toEqual(["YESS", "PUP", "Explicit", "AtomIQ"]);
   const divider = await player.getByTestId("partner-divider").boundingBox();
-  const meralco = await player.locator('[data-partner="Meralco"]').boundingBox();
+  const yess = await player.locator('[data-partner="YESS"]').boundingBox();
   const pup = await player.locator('[data-partner="PUP"]').boundingBox();
-  expect(divider!.x).toBeGreaterThan(meralco!.x + meralco!.width);
+  expect(divider!.x).toBeGreaterThan(yess!.x + yess!.width);
   expect(divider!.x).toBeLessThan(pup!.x);
   expect(await player.locator("[data-presenter]").evaluateAll(elements => elements.map(element => element.getAttribute("data-presenter")))).toEqual(["Michelle", "Kent", "Ezekiel"]);
   // Verify the actual uploaded assets decode, rather than accepting empty circles.
