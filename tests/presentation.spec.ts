@@ -85,11 +85,11 @@ test("custom transitions, chapter boundary, Home, End, and final deck hold", asy
   await atFrame(page, 14);
   await expect(player(page)).toHaveAttribute("data-slide", "chapter-02-nuclear");
   await page.keyboard.press("End");
-  await atFrame(page, 163);
+  await atFrame(page, 72);
   await expect(
     page.getByRole("button", { name: "Next checkpoint or slide", exact: true }),
   ).toBeDisabled();
-  for (const frame of [72, 48, 24, 0]) {
+  for (const frame of [0, 253, 72, 48, 24, 0]) {
     await page.keyboard.press("ArrowLeft");
     await atFrame(page, frame);
   }
@@ -99,7 +99,7 @@ test("custom transitions, chapter boundary, Home, End, and final deck hold", asy
   await page.keyboard.press("Home");
   await atFrame(page, 30);
   await page.keyboard.press("End");
-  await atFrame(page, 163);
+  await atFrame(page, 72);
   await page.keyboard.press("Home");
   await atFrame(page, 30);
 });
@@ -266,7 +266,7 @@ test("fullscreen persists across slides and denied fullscreen exits immediately 
     /is-presenting/,
   );
   await page.keyboard.press("End");
-  await atFrame(page, 163);
+  await atFrame(page, 72);
   await expect(page.locator(".presentation-stage")).toHaveClass(
     /is-presenting/,
   );

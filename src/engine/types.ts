@@ -24,6 +24,8 @@ export interface SlideDefinition {
   transitionComponent?: ComponentType<SlideTransitionProps>;
   /** Override the deck transition duration when an individual reveal needs more time. */
   transitionFrames?: number;
+  /** Continue after playback reaches the final frame; seeking still holds. */
+  autoAdvance?: boolean;
   notes: string;
   background: string;
 }

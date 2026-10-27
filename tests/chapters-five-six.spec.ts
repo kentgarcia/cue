@@ -38,47 +38,49 @@ test("international chapter uses a full-screen media slot, large counts, and the
   await expect(player(page).getByRole("heading")).toContainText("PLACE.");
 });
 
-test("three closing statements hold independently before the scannable website QR", async ({ page }) => {
+test("closing restores branding, automatically transitions to the animated QR, and holds for scanning", async ({ page }) => {
   await page.goto("/");
-  await open(page, 20, 30);
-  await expect(player(page).getByRole("heading", { name: "Are you willing to take the first step?" })).toBeVisible();
   await open(page, 21, 24);
   for (const [frame, count] of [[24, 1], [48, 2], [72, 3]]) {
     if (frame !== 24) await player(page).click();
     await hold(page, frame!);
     await expect(player(page).locator('[data-testid^="closing-line-"]')).toHaveCount(count!);
-    await expect(player(page).getByTestId("closing-qr")).toHaveCount(0);
+    await expect(player(page).getByTestId("closing-brand")).toHaveCount(0);
   }
-  await expect(player(page).getByTestId("closing-message")).toContainText("Start with what you know.");
-  await expect(player(page).getByTestId("closing-message")).toContainText("Learn what you don't.");
-  await expect(player(page).getByTestId("closing-message")).toContainText("Discover what's possible.");
-  await player(page).screenshot({ path: "test-results/closing-three-statements.png" });
   await player(page).click();
-  await hold(page, 163);
-  await expect(player(page).getByTestId("closing-message")).toHaveCount(0);
-  await expect(player(page).getByRole("heading", { name: "Explore AtomIQ.", exact: true })).toBeVisible();
+  await expect(player(page).locator('[data-atomiq-entrance="settled"]')).toBeVisible({ timeout: 7000 });
+  await expect(player(page).getByTestId("atomiq-tagline")).toHaveText("When facts are clear, there’s nothing to fear.");
+  await expect(player(page).getByTestId("promotional-qr")).toHaveCount(0);
+  await player(page).screenshot({ path: "test-results/closing-brand-before-qr.png" });
+  // No presenter action between branding and the QR slide.
+  await expect(player(page)).toHaveAttribute("data-slide", "chapter-06-discover", { timeout: 8000 });
+  await hold(page, 72);
   const qr = player(page).getByTestId("promotional-qr");
   await expect(qr).toHaveAttribute("src", "/media/atomiq/promo-qr.svg");
-  await expect(qr).toHaveJSProperty("complete", true);
   await expect(qr.locator("..")).toHaveAttribute("href", "https://atomiq-pi.vercel.app/");
+  await expect(player(page).getByRole("heading", { name: "Curiosity starts here." })).toBeVisible();
   const bounds = await qr.boundingBox();
   const canvas = await player(page).boundingBox();
   expect(bounds!.width / canvas!.width).toBeGreaterThan(0.4);
-  const before = await qr.getAttribute("style");
+  const mascot = player(page).locator(".promo-finale__mascot");
+  const before = await mascot.evaluate(element => getComputedStyle(element).transform);
   await page.waitForTimeout(700);
-  await expect(qr).toHaveAttribute("style", before!);
-  await hold(page, 163);
-  await expect(player(page).getByTestId("atomiq-phone")).toHaveCount(0);
+  expect(await qr.boundingBox()).toEqual(bounds);
+  expect(await mascot.evaluate(element => getComputedStyle(element).transform)).not.toBe(before);
+  await hold(page, 72);
   await expect(page.getByRole("button", { name: "Next checkpoint or slide", exact: true })).toBeDisabled();
   await player(page).screenshot({ path: "test-results/closing-website-qr.png" });
   await qr.screenshot({ path: "test-results/promotional-qr-rendered.png" });
   await page.keyboard.press("ArrowLeft");
+  await hold(page, 0);
+  await page.keyboard.press("ArrowLeft");
+  await hold(page, 253);
+  await expect(player(page)).toHaveAttribute("data-slide", "chapter-06-closing");
+  await page.waitForTimeout(400);
+  await hold(page, 253);
+  await page.keyboard.press("ArrowLeft");
   await hold(page, 72);
-  await expect(player(page).getByTestId("closing-qr")).toHaveCount(0);
   await expect(player(page).locator('[data-testid^="closing-line-"]')).toHaveCount(3);
-  await page.getByRole("button", { name: "Restart slide", exact: true }).click();
-  await hold(page, 24);
-  await expect(player(page).locator('[data-testid^="closing-line-"]')).toHaveCount(1);
 });
 
 test("new slides fit the canvas and closing remains still in reduced motion", async ({ page }) => {
@@ -87,11 +89,11 @@ test("new slides fit the canvas and closing remains still in reduced motion", as
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
-  for (const [number, frame] of [[17, 30], [18, 24], [19, 36], [20, 30], [21, 24]]) {
+  for (const [number, frame] of [[17, 30], [18, 24], [19, 36], [20, 30], [21, 24], [22, 72]]) {
     await open(page, number!, frame!);
     if (number === 18 || number === 21) {
       await page.getByRole("button", { name: /^Seek to cue / }).last().click();
-      await hold(page, number === 18 ? 48 : 163);
+      await hold(page, number === 18 ? 48 : 253);
     }
     expect(await player(page).evaluate((element) => {
       const canvas = element.getBoundingClientRect();

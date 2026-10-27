@@ -2,7 +2,7 @@
 
 A code-first, presenter-controlled presentation engine built with React, TypeScript, Vite, and Remotion. **Animate. Pause. Speak. Click. Continue.**
 
-The active deck is **Team AtomIQ — Beyond What We Know**, with **21 slides** across six chapters. It includes the supplied team photos, recreated AtomIQ feature demonstrations, the audience swipe game, and three closing statements followed by the animated AtomIQ showcase. The deleted “Bringing the experience home” slide is not registered. Earlier generic examples in `src/slides/` are not part of the deck.
+The active deck is **Team AtomIQ — Beyond What We Know**, with **22 slides** across six chapters. It includes the supplied team photos, recreated AtomIQ feature demonstrations, the audience swipe game, and three closing statements followed by the animated AtomIQ showcase and an automatic transition to a dedicated QR invitation. The deleted “Bringing the experience home” slide is not registered. Earlier generic examples in `src/slides/` are not part of the deck.
 
 ## Run locally
 
@@ -45,7 +45,7 @@ For a CLI deployment, run `npx vercel` and follow the account/project prompts; u
 ## Performance
 
 - The desktop sidebar has its own viewport-height scroll area; its header and footer stay visible. Mobile retains a horizontal slide strip.
-- Only previews in or near that scroll area mount a Remotion `Thumbnail`. Off-screen previews unmount, while all 21 navigation buttons remain accessible. Keyboard navigation scrolls the selected card inside the panel without moving the canvas.
+- Only previews in or near that scroll area mount a Remotion `Thumbnail`. Off-screen previews unmount, while all 22 navigation buttons remain accessible. Keyboard navigation scrolls the selected card inside the panel without moving the canvas.
 - Memoized cards keep unchanged previews out of unrelated renders. Live playback already isolates source-frame updates from the editor shell.
 - `npm run media:optimize` generates fingerprinted WebP derivatives for large PNG photos, the poster, app icon and phone. Original uploads remain untouched. Already-small JPEGs and existing optimized artwork retain their original sources. The manifest and generated images are committed alongside the sources, and the script runs automatically before development and production builds.
 - Browser `srcset` selects the compressed derivative while the image's `src` continues to identify the editable original. Remotion loading and error handling are preserved.

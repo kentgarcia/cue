@@ -1,6 +1,6 @@
 import { ChapterTransition } from "../chapter-01/transitions";
 import type { SlideDefinition } from "../../../engine/types";
-import { Slide19FirstStep, Slide20Closing } from "./FirstStepSlides";
+import { Slide19FirstStep, Slide20Closing, Slide22Discover } from "./FirstStepSlides";
 import { chapterTheme, chapterSixTiming as timing } from "./theme";
 
 const shared = {
@@ -19,7 +19,15 @@ export const chapterSixSlides = [
   {
     ...shared, id: "chapter-06-closing", title: "The final message", component: Slide20Closing,
     durationInFrames: timing.closing.duration, checkpoints: timing.closing.checkpoints,
-    checkpointLabels: ["Start", "Start with what you know", "Learn what you don't", "Discover what's possible", "Scan · AtomIQ website"], background: chapterTheme.colors.dark,
-    notes: "KENT · Say ‘Start with what you know.’ Hold. Advance as you say ‘Learn what you don't.’ Hold. Advance as you say ‘Discover what's possible.’ Let all three statements remain together. Then advance once to reveal the large QR code for https://atomiq-pi.vercel.app/, the AtomIQ promotional website. Invite the audience to scan it with their cameras. Keep the QR code on screen while people scan; it stays still and holds indefinitely. Reverse restores the three statements; restart returns to the first statement.",
+    checkpointLabels: ["Start", "Start with what you know", "Learn what you don't", "Discover what's possible", "AtomIQ reveal → automatic QR"], background: chapterTheme.colors.dark,
+    autoAdvance: true,
+    notes: "KENT · Say each closing statement on its own cue. Let all three remain together, then advance once for the complete AtomIQ branding reveal. The logo, name, tagline, phone and Schrödi finish their entrance, hold for three seconds, and automatically transition to the dedicated QR slide. Pause can stop this sequence. Seeking directly to the final cue or revisiting it with Left holds the brand until you advance.",
+  },
+  {
+    ...shared, id: "chapter-06-discover", title: "Your next discovery", component: Slide22Discover,
+    durationInFrames: timing.qr.duration, checkpoints: timing.qr.checkpoints,
+    checkpointLabels: ["Start", "Scan · AtomIQ website"], background: "#FFF7E8",
+    transition: "fade", transitionComponent: undefined, transitionFrames: 24,
+    notes: "Invite the audience to scan the QR code for https://atomiq-pi.vercel.app/. The code settles and stays fixed; only Schrödi and decorative sparks drift gently. Leave it on screen while people scan. It holds indefinitely. Reduced motion keeps the scene still. Left rewinds the QR entrance; another Left returns to the final AtomIQ branding.",
   },
 ] as const satisfies readonly SlideDefinition[];

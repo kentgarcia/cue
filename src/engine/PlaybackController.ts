@@ -22,6 +22,8 @@ export function validatePresentation(config: PresentationConfig): void {
     throw new Error("Invalid transition timing.");
   const identifiers = new Set<string>();
   for (const slide of config.slides) {
+    if (slide.autoAdvance && slide === config.slides.at(-1))
+      throw new Error(`${slide.id}: an auto-advancing slide needs a following slide.`);
     if (identifiers.has(slide.id))
       throw new Error(`Duplicate slide id: ${slide.id}`);
     identifiers.add(slide.id);
@@ -209,8 +211,11 @@ export class PlaybackController {
       return;
     const bounded = Math.min(frame, this.state.targetFrame);
     if (bounded < this.state.frame) return;
-    if (bounded >= this.state.targetFrame)
+    if (bounded >= this.state.targetFrame) {
+      const advance = this.slide.autoAdvance && this.state.targetFrame === this.slide.durationInFrames - 1;
       this.update({ frame: this.state.targetFrame, phase: "paused" }, true);
+      if (advance) this.goToSlide(this.state.slideIndex + 1);
+    }
     else if (bounded !== this.state.frame) this.update({ frame: bounded });
   };
 

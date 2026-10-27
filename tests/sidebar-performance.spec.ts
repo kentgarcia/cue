@@ -10,7 +10,7 @@ test("sidebar stays within the viewport and only mounts nearby previews", async 
   await expect(stage(page)).toHaveAttribute("data-frame", "30");
   const list = page.getByRole("region", { name: "Slides", exact: true });
   const sidebar = page.getByRole("complementary", { name: "Slide navigation" });
-  await expect(sidebar.getByRole("button", { name: /^Go to slide / })).toHaveCount(21);
+  await expect(sidebar.getByRole("button", { name: /^Go to slide / })).toHaveCount(22);
   await expect(list).toHaveCSS("overflow-y", "auto");
   const geometry = await sidebar.evaluate(element => {
     const list = element.querySelector(".slide-list")!;
@@ -24,8 +24,8 @@ test("sidebar stays within the viewport and only mounts nearby previews", async 
   const before = await page.evaluate(() => scrollY);
   await page.evaluate(() => (document.activeElement as HTMLElement)?.blur());
   await page.keyboard.press("End");
-  await expect(stage(page)).toHaveAttribute("data-frame", "163");
-  const selected = sidebar.getByRole("button", { name: /^Go to slide 21:/ });
+  await expect(stage(page)).toHaveAttribute("data-frame", "72");
+  const selected = sidebar.getByRole("button", { name: /^Go to slide 22:/ });
   await expect(selected).toHaveAttribute("aria-current", "step");
   await expect(selected.locator("[data-slide-frame]")).toHaveCount(1);
   expect(await list.evaluate(element => element.scrollTop)).toBeGreaterThan(1000);
@@ -36,7 +36,7 @@ test("sidebar stays within the viewport and only mounts nearby previews", async 
   await page.getByRole("button", { name: "Hide slide sidebar", exact: true }).click();
   await expect(sidebar).toHaveCount(0);
   await page.getByRole("button", { name: "Show slide sidebar", exact: true }).click();
-  await expect(sidebar.getByRole("button", { name: /^Go to slide 21:/ })).toHaveAttribute("aria-current", "step");
+  await expect(sidebar.getByRole("button", { name: /^Go to slide 22:/ })).toHaveAttribute("aria-current", "step");
 });
 
 test("mobile navigation remains a compact horizontal strip", async ({ page }) => {

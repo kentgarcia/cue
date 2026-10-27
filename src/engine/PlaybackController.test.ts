@@ -285,3 +285,44 @@ describe("presentation registry validation", () => {
     ).toThrow();
   });
 });
+
+
+describe("opt-in automatic slide advance", () => {
+  const automatic: PresentationConfig = { ...config, slides: [{ ...config.slides[0]!, autoAdvance: true }, config.slides[1]!] };
+
+  it("waits at intermediate cues and advances once at the final playback bound", () => {
+    const controller = new PlaybackController(automatic);
+    settle(controller);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: 0, frame: 30, phase: "paused" });
+    controller.next(); settle(controller);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: 0, frame: 60, phase: "paused" });
+    controller.next();
+    const revision = controller.getSnapshot().revision;
+    controller.onFrame(140, revision);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: 1, phase: "transitioning", transition: { fromFrame: 99 } });
+    const after = controller.getSnapshot();
+    controller.onEnded(revision);
+    expect(controller.getSnapshot()).toBe(after);
+  });
+
+  it("allows pausing, seeking and revisiting the final brand without advancing", () => {
+    const controller = new PlaybackController(automatic);
+    controller.seek(99);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: 0, frame: 99, phase: "paused" });
+    controller.seek(60); controller.next();
+    const revision = controller.getSnapshot().revision;
+    controller.onFrame(77, revision);
+    controller.toggle();
+    controller.onEnded(revision);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: 0, frame: 77, phase: "paused" });
+    controller.toggle(); settle(controller);
+    controller.finishTransition(controller.getSnapshot().revision);
+    controller.previous();
+    controller.finishTransition(controller.getSnapshot().revision);
+    expect(controller.getSnapshot()).toMatchObject({ slideIndex: 0, frame: 99, phase: "paused" });
+  });
+
+  it("rejects automatic advance on the final deck slide", () => {
+    expect(() => validatePresentation({ ...config, slides: [{ ...config.slides[0]!, autoAdvance: true }] })).toThrow("following slide");
+  });
+});
