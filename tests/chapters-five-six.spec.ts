@@ -38,7 +38,7 @@ test("international chapter uses a full-screen media slot, large counts, and the
   await expect(player(page).getByRole("heading")).toContainText("PLACE.");
 });
 
-test("three closing statements hold independently before the copied AtomIQ reveal", async ({ page }) => {
+test("three closing statements hold independently before the scannable website QR", async ({ page }) => {
   await page.goto("/");
   await open(page, 20, 30);
   await expect(player(page).getByRole("heading", { name: "Are you willing to take the first step?" })).toBeVisible();
@@ -47,7 +47,7 @@ test("three closing statements hold independently before the copied AtomIQ revea
     if (frame !== 24) await player(page).click();
     await hold(page, frame!);
     await expect(player(page).locator('[data-testid^="closing-line-"]')).toHaveCount(count!);
-    await expect(player(page).getByTestId("closing-brand")).toHaveCount(0);
+    await expect(player(page).getByTestId("closing-qr")).toHaveCount(0);
   }
   await expect(player(page).getByTestId("closing-message")).toContainText("Start with what you know.");
   await expect(player(page).getByTestId("closing-message")).toContainText("Learn what you don't.");
@@ -56,15 +56,25 @@ test("three closing statements hold independently before the copied AtomIQ revea
   await player(page).click();
   await hold(page, 163);
   await expect(player(page).getByTestId("closing-message")).toHaveCount(0);
-  await expect(player(page).getByRole("heading", { name: "AtomIQ", exact: true })).toBeVisible();
-  await expect(player(page).getByTestId("atomiq-phone")).toHaveAttribute("src", "/media/atomiq/phone.png");
-  await expect(player(page).getByTestId("atomiq-tagline")).toHaveText("When facts are clear, there’s nothing to fear.");
-  await expect(player(page).locator("[data-atomiq-idle]")).toHaveAttribute("data-atomiq-idle", "playing");
+  await expect(player(page).getByRole("heading", { name: "Explore AtomIQ.", exact: true })).toBeVisible();
+  const qr = player(page).getByTestId("promotional-qr");
+  await expect(qr).toHaveAttribute("src", "/media/atomiq/promo-qr.svg");
+  await expect(qr).toHaveJSProperty("complete", true);
+  await expect(qr.locator("..")).toHaveAttribute("href", "https://atomiq-pi.vercel.app/");
+  const bounds = await qr.boundingBox();
+  const canvas = await player(page).boundingBox();
+  expect(bounds!.width / canvas!.width).toBeGreaterThan(0.4);
+  const before = await qr.getAttribute("style");
+  await page.waitForTimeout(700);
+  await expect(qr).toHaveAttribute("style", before!);
+  await hold(page, 163);
+  await expect(player(page).getByTestId("atomiq-phone")).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Next checkpoint or slide", exact: true })).toBeDisabled();
-  await player(page).screenshot({ path: "test-results/closing-atomiq-reveal.png" });
+  await player(page).screenshot({ path: "test-results/closing-website-qr.png" });
+  await qr.screenshot({ path: "test-results/promotional-qr-rendered.png" });
   await page.keyboard.press("ArrowLeft");
   await hold(page, 72);
-  await expect(player(page).getByTestId("closing-brand")).toHaveCount(0);
+  await expect(player(page).getByTestId("closing-qr")).toHaveCount(0);
   await expect(player(page).locator('[data-testid^="closing-line-"]')).toHaveCount(3);
   await page.getByRole("button", { name: "Restart slide", exact: true }).click();
   await hold(page, 24);

@@ -24,22 +24,23 @@ describe("Chapters 05–06", () => {
     expect(presentation.slides.slice(16)).toEqual([...chapterFiveSlides, ...chapterSixSlides]);
   });
 
-  it.each([false, true])("restores each closing statement and keeps branding behind its cue, reduced motion %s", (reducedMotion) => {
+  it.each([false, true])("restores each closing statement and keeps the QR behind its cue, reduced motion %s", (reducedMotion) => {
     for (const [frame, count] of [[0, 0], [24, 1], [48, 2], [72, 3], [48, 2], [24, 1]] as const) {
       timeline.frame = frame;
       const markup = renderToStaticMarkup(createElement(Slide20Closing, { reducedMotion, slideCount: 21 }));
       for (let index = 1; index <= 3; index++) expect(markup.includes(`data-testid="closing-line-${index}"`)).toBe(index <= count);
-      expect(markup).not.toContain('data-testid="closing-brand"');
+      expect(markup).not.toContain('data-testid="closing-qr"');
     }
     timeline.frame = 163;
     const markup = renderToStaticMarkup(createElement(Slide20Closing, { reducedMotion, slideCount: 21 }));
-    expect(markup).toContain('data-testid="closing-brand"');
-    expect(markup).toContain('data-testid="atomiq-phone"');
-    expect(markup).toContain('data-testid="atomiq-tagline"');
+    expect(markup).toContain('data-testid="closing-qr"');
+    expect(markup).toContain('data-testid="promotional-qr"');
+    expect(markup).toContain('href="https://atomiq-pi.vercel.app/"');
+    expect(markup).not.toContain('data-testid="atomiq-phone"');
     expect(markup).not.toContain('data-testid="closing-message"');
   });
 
-  it("holds the three statements and final brand, with reverse and restart", () => {
+  it("holds the three statements and final QR, with reverse and restart", () => {
     const controller = new PlaybackController(presentation);
     controller.goToSlide(20);
     controller.finishTransition(controller.getSnapshot().revision);

@@ -19,7 +19,7 @@ export const chapterSixSlides = [
   {
     ...shared, id: "chapter-06-closing", title: "The final message", component: Slide20Closing,
     durationInFrames: timing.closing.duration, checkpoints: timing.closing.checkpoints,
-    checkpointLabels: ["Start", "Start with what you know", "Learn what you don't", "Discover what's possible", "AtomIQ · final hold"], background: chapterTheme.colors.dark,
-    notes: "KENT · Say ‘Start with what you know.’ Hold. Advance as you say ‘Learn what you don't.’ Hold. Advance as you say ‘Discover what's possible.’ Let all three statements remain together. Then advance once to fade into the copied AtomIQ showcase from slide 8, including its icon, name, tagline, phone, Schrödi, entrance and idle animations. The final design holds indefinitely. Reverse restores the three statements; restart returns to the first statement.",
+    checkpointLabels: ["Start", "Start with what you know", "Learn what you don't", "Discover what's possible", "Scan · AtomIQ website"], background: chapterTheme.colors.dark,
+    notes: "KENT · Say ‘Start with what you know.’ Hold. Advance as you say ‘Learn what you don't.’ Hold. Advance as you say ‘Discover what's possible.’ Let all three statements remain together. Then advance once to reveal the large QR code for https://atomiq-pi.vercel.app/, the AtomIQ promotional website. Invite the audience to scan it with their cameras. Keep the QR code on screen while people scan; it stays still and holds indefinitely. Reverse restores the three statements; restart returns to the first statement.",
   },
 ] as const satisfies readonly SlideDefinition[];
