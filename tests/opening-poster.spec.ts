@@ -10,8 +10,14 @@ test("opening recreates the reference as editable vector layers and ambience kee
   await expect(player).toHaveAttribute("data-phase", "paused");
   const artwork = player.getByTestId("opening-poster");
   await expect(artwork).toHaveAttribute("aria-label", posterDescription);
-  await expect(player.locator("image")).toHaveCount(7);
-  expect(await player.locator("[data-partner]").evaluateAll(elements => elements.map(element => element.getAttribute("data-partner")))).toEqual(["YESS", "PUP", "Explicit", "AtomIQ"]);
+  const logoBar = player.getByTestId("partner-logo-bar");
+  await expect(logoBar).toHaveAttribute("fill", "#ffffff");
+  const barBounds = await logoBar.boundingBox();
+  const posterBounds = await artwork.boundingBox();
+  expect(Math.abs(barBounds!.width - posterBounds!.width)).toBeLessThan(1);
+  expect(Math.abs(barBounds!.y - posterBounds!.y)).toBeLessThan(1);
+  await expect(player.locator("image")).toHaveCount(8);
+  expect(await player.locator("[data-partner]").evaluateAll(elements => elements.map(element => element.getAttribute("data-partner")))).toEqual(["Meralco", "YESS", "PUP", "Explicit", "AtomIQ"]);
   const divider = await player.getByTestId("partner-divider").boundingBox();
   const yess = await player.locator('[data-partner="YESS"]').boundingBox();
   const pup = await player.locator('[data-partner="PUP"]').boundingBox();
