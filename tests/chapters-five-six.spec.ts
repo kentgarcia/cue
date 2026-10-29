@@ -38,7 +38,7 @@ test("international chapter uses a full-screen media slot, large counts, and the
   await expect(player(page).getByRole("heading")).toContainText("PLACE.");
 });
 
-test("closing restores branding, automatically transitions to the animated QR, and holds for scanning", async ({ page }) => {
+test("closing restores branding, automatically transitions to the two QR codes, and holds for scanning", async ({ page }) => {
   await page.goto("/");
   await open(page, 21, 24);
   for (const [frame, count] of [[24, 1], [48, 2], [72, 3]]) {
@@ -58,19 +58,26 @@ test("closing restores branding, automatically transitions to the animated QR, a
   const qr = player(page).getByTestId("promotional-qr");
   await expect(qr).toHaveAttribute("src", "/media/atomiq/promo-qr.svg");
   await expect(qr.locator("..")).toHaveAttribute("href", "https://atomiq-pi.vercel.app/");
-  await expect(player(page).getByRole("heading", { name: "Curiosity starts here." })).toBeVisible();
+  const facebook = player(page).getByTestId("facebook-qr");
+  await expect(facebook).toHaveAttribute("src", "/media/atomiq/facebook-qr.svg");
+  await expect(facebook.locator("..")).toHaveAttribute("href", "https://www.facebook.com/share/1bd1LduxTg/?mibextid=wwXIfr");
+  await expect(player(page).getByRole("heading", { name: "Facebook", exact: true })).toBeVisible();
+  await expect(player(page).getByRole("heading", { name: "Website", exact: true })).toBeVisible();
   const bounds = await qr.boundingBox();
   const canvas = await player(page).boundingBox();
-  expect(bounds!.width / canvas!.width).toBeGreaterThan(0.4);
-  const mascot = player(page).locator(".promo-finale__mascot");
-  const before = await mascot.evaluate(element => getComputedStyle(element).transform);
+  expect(bounds!.width / canvas!.width).toBeGreaterThan(0.38);
+  const facebookBounds = await facebook.boundingBox();
+  expect(facebookBounds!.x + facebookBounds!.width).toBeLessThan(bounds!.x);
+  expect(Math.abs(facebookBounds!.width - bounds!.width)).toBeLessThan(1);
+
   await page.waitForTimeout(700);
   expect(await qr.boundingBox()).toEqual(bounds);
-  expect(await mascot.evaluate(element => getComputedStyle(element).transform)).not.toBe(before);
+  expect(await facebook.boundingBox()).toEqual(facebookBounds);
   await hold(page, 72);
   await expect(page.getByRole("button", { name: "Next checkpoint or slide", exact: true })).toBeDisabled();
   await player(page).screenshot({ path: "test-results/closing-website-qr.png" });
   await qr.screenshot({ path: "test-results/promotional-qr-rendered.png" });
+  await facebook.screenshot({ path: "test-results/facebook-qr-rendered.png" });
   await page.keyboard.press("ArrowLeft");
   await hold(page, 0);
   await page.keyboard.press("ArrowLeft");

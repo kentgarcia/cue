@@ -10,7 +10,7 @@ These chapters occupy slides 17–22 in the current 22-slide deck. Spoken cues w
 | 20 · Return to the audience | “Are you willing to take the first step?” · 30 | Hold and make eye contact. |
 | 21 · The final message | “Start with what you know.” · 24 | “Learn what you don't.” · 48 → “Discover what's possible.” · 72 → AtomIQ reveal and three-second hold · 253, then automatically transition to slide 22. |
 
-| 22 · Your next discovery | Animated invitation and large QR · 72 | Holds indefinitely for scanning. |
+| 22 · Facebook & website | Facebook QR on the left, website QR on the right · 72 | Both codes hold indefinitely for scanning. |
 
 ## International photograph
 
@@ -20,12 +20,12 @@ These chapters occupy slides 17–22 in the current 22-slide deck. Spoken cues w
 
 All three statements accumulate on separate cues. After the third, advance once to restore the full AtomIQ showcase from slide 8: logo, name, official tagline, phone and Schrödi. Its local entrance finishes at slide frame 163, followed by a three-second hold. At frame 253, playback automatically transitions to the dedicated QR slide. The automatic transition is frame-driven, pauses with playback, and does not run when seeking to the final branding frame or revisiting it with Left.
 
-The QR invitation has a warm paper background, orbital line art, orange accents, a staggered entrance and gently floating Schrödi and sparks. Its large white scan card settles once and remains fixed. Reduced motion and thumbnails keep ambient motion disabled. The screen holds indefinitely while people scan.
+The final invitation has two equal white cards on a warm paper background. The left card is labeled Facebook with a blue accent; the right is labeled Website with an orange accent. Both cards have a short, gentle entrance and stay fixed after it. Reduced motion uses only opacity. There is no mascot or continuous decorative motion on this screen.
 
-The locally bundled vector QR at `public/media/atomiq/promo-qr.svg` encodes exactly `https://atomiq-pi.vercel.app/`, with high error correction and a four-module white quiet zone. It requires no external QR service. The QR and written address are also clickable.
+Both QR codes are locally bundled vectors with high error correction and a four-module white quiet zone. The left QR at `public/media/atomiq/facebook-qr.svg` encodes `https://www.facebook.com/share/1bd1LduxTg/?mibextid=wwXIfr`. The right QR at `public/media/atomiq/promo-qr.svg` encodes `https://atomiq-pi.vercel.app/`. They require no external QR service to display, and the codes and captions are clickable.
 
 Pause can interrupt the branding countdown. From the settled QR, Left rewinds its entrance; another Left returns to the completed branding and holds. Another Left restores the three statements. Restart applies to the current slide. End jumps directly to the settled QR invitation.
 
 ## Verification
 
-Run `npm run check` and browser checks in `tests/chapters-five-six.spec.ts`. These cover the actual international image, number cues, independent closing statements, branding-to-QR automatic transition, scan-card stability, ambient motion, destination links, display size, reverse navigation, canvas bounds and reduced motion. Development review sheets are available at `/tests/chapter-preview.html?chapter5` and `?chapter6`.
+Run `npm run check` and browser checks in `tests/chapters-five-six.spec.ts`. These cover the actual international image, number cues, independent closing statements, branding-to-QR automatic transition, scan-card stability, destination links, display size, reverse navigation, canvas bounds and reduced motion. Development review sheets are available at `/tests/chapter-preview.html?chapter5` and `?chapter6`.

@@ -24,10 +24,10 @@ export const chapterSixSlides = [
     notes: "KENT · Say each closing statement on its own cue. Let all three remain together, then advance once for the complete AtomIQ branding reveal. The logo, name, tagline, phone and Schrödi finish their entrance, hold for three seconds, and automatically transition to the dedicated QR slide. Pause can stop this sequence. Seeking directly to the final cue or revisiting it with Left holds the brand until you advance.",
   },
   {
-    ...shared, id: "chapter-06-discover", title: "Your next discovery", component: Slide22Discover,
+    ...shared, id: "chapter-06-discover", title: "Facebook & website", component: Slide22Discover,
     durationInFrames: timing.qr.duration, checkpoints: timing.qr.checkpoints,
-    checkpointLabels: ["Start", "Scan · AtomIQ website"], background: "#FFF7E8",
+    checkpointLabels: ["Start", "Scan · Facebook & website"], background: "#FFF7E8",
     transition: "fade", transitionComponent: undefined, transitionFrames: 24,
-    notes: "Invite the audience to scan the QR code for https://atomiq-pi.vercel.app/. The code settles and stays fixed; only Schrödi and decorative sparks drift gently. Leave it on screen while people scan. It holds indefinitely. Reduced motion keeps the scene still. Left rewinds the QR entrance; another Left returns to the final AtomIQ branding.",
+    notes: "Invite the audience to scan either QR code: Facebook on the left (https://www.facebook.com/share/1bd1LduxTg/?mibextid=wwXIfr), AtomIQ’s website on the right (https://atomiq-pi.vercel.app/). Both codes settle and stay fixed. Leave them on screen while people scan. It holds indefinitely. Reduced motion keeps the scene still. Left rewinds the QR entrance; another Left returns to the final AtomIQ branding.",
   },
 ] as const satisfies readonly SlideDefinition[];
